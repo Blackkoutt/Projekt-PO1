@@ -1,0 +1,5 @@
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (3)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.csproj.AssemblyReference.cache
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (3)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (3)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.AssemblyInfoInputs.cache
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (3)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.AssemblyInfo.cs
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (3)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.csproj.CoreCompileInputs.cache
