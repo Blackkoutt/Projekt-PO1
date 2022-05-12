@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace Wydawnictwo
 {
     class DzialProgramowy
     {
-        private List<Autor> ListaAutorow = new List<Autor>();
-        private List<Umowy> ListaUmow = new List<Umowy>();
+        private ArrayList ListaAutorow = new ArrayList();
+        private ArrayList ListaUmow = new ArrayList();
         public void UmowaOPrace(double dlugosc, Autor autor)
         {
             Umowy umowa = new UmowyOPrace(dlugosc, autor);
@@ -58,7 +59,7 @@ namespace Wydawnictwo
                 }
             }
         }
-        public List<Umowy> Umowy { get { return ListaUmow; } }
+        public ArrayList getUmowy() { return ListaUmow; }
         public static Boolean WyborDrukarni(int ilosc, Publikacje publikacje)
         {
             if (publikacje is Albumy)
@@ -70,9 +71,9 @@ namespace Wydawnictwo
                 return Drukarnie.DrukujNormalnie(ilosc, publikacje);
             }
         }
-        public List<Autor> Autor
+        public ArrayList getAutor()
         {
-            get { return ListaAutorow; }
+            return ListaAutorow;
         }
         //dodaj do pilku i dodaj na liste 
         public void DodajAutora(Autor autor)

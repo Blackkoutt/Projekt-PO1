@@ -10,7 +10,7 @@ namespace Wydawnictwo
     {
         protected Autor autor;
         protected String tytul;
-        private int ilosc;
+        private int ilosc=0;
         public Publikacje(Autor autor, String tytul)
         {
             this.tytul = tytul;

@@ -8,13 +8,15 @@ namespace Wydawnictwo
 {
     class Autor
     {
-        private String Imie, Nazwisko, email;
-        public Autor(String Imie, String Nazwisko, String email)
+        private String imie, nazwisko, email;
+        public Autor(String imie, String nazwisko, String email)
         {
-            this.Imie = Imie;
-            this.Nazwisko = Nazwisko;
+            this.imie = imie;
+            this.nazwisko = nazwisko;
             this.email = email;
         }
-
+        public String Imie { get { return imie; } }
+        public String Nazwisko { get { return nazwisko; } }
+        public String Email { get { return email; } }
     }
 }
