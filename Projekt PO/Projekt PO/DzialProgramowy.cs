@@ -15,7 +15,7 @@ namespace Wydawnictwo
         //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
         public bool UmowaOPrace(double dlugosc, Autor autor)
         {  
-            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor) 
+            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor)) 
                 { return false; }
             
             if (!this.AutorNaLiscie(autor)) 
@@ -34,7 +34,7 @@ namespace Wydawnictwo
         //więc albo można ją usuwać ręcznie albo od razu po utworzeniu ewentualnie dodać listę z historią umów
         public bool UmowaODzielo(Autor autor, Publikacje publikacja)
         {
-            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor) 
+            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor)) 
                 { return false; }
             
             if (!this.AutorNaLiscie(autor)) 
@@ -121,7 +121,7 @@ namespace Wydawnictwo
             return false;
         }
         
-        public UmowyODzielo UmowaODzieloNaLiscie(Autor autor)
+        public bool UmowaODzieloNaLiscie(Autor autor)
         {
             foreach (UmowyODzielo umowa in ListaUmow)
             {
@@ -130,7 +130,7 @@ namespace Wydawnictwo
             return false;
         }
         
-        public UmowyOPrace UmowaOPraceNaLiscie(Autor autor)
+        public bool UmowaOPraceNaLiscie(Autor autor)
         {            
             foreach (UmowyOPrace umowa in ListaUmow)
             {
