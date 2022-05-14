@@ -9,13 +9,16 @@ namespace Wydawnictwo
     class DzialHandlu
     {
         private List<Publikacje> ListaPublikacji = new List<Publikacje>();
+
+        private String NazwaPlikuPublikacje = "Publikacje.txt";
+
         public static void ZlecenieDruku(int ilosc, Publikacje publikacje)
         {
             if (DzialProgramowy.WyborDrukarni(ilosc, publikacje))
                 Console.WriteLine("Pomyslnie wydrukowano " + publikacje.Tytul + " w nastepujacej liczbie egzemplarzy: " + ilosc);
         }
         //dodaj do listy publikacji jesli drukarnia zwrocila true po wydrukowaniu
-        public void DodajDoListy(Publikacje publikacje)
+        public static void DodajDoListy(Publikacje publikacje)
         {
             ListaPublikacji.Add(publikacje);
         }
@@ -26,6 +29,21 @@ namespace Wydawnictwo
         {
             get { return ListaPublikacji; }
         }
+
+        public static String PlikPublikacje
+        {
+            get { return NazwaPlikuPublikacje; }
+        }
+
+        public static Boolean PublikacjaNaLiscie(Publikacje publikacja)
+        {
+            foreach (Publikacje publikacje in ListaPublikacji)
+            {
+                if (publikacja.Equals(publikacje)) { return true; }
+            }
+            return false;
+        }
+
     }
 
 }
