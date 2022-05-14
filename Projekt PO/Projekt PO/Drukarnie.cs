@@ -11,7 +11,17 @@ namespace Wydawnictwo
         //pisanie do pliku
         //jesli publikacja jest juz na liscie to zwiekszenie jej ilosci 
         //jesli publikacja nie jest na liscie to zapisanie do pliku i 
-        public static void AktualizacjaPublikacji(Publikacje publikacje, int ilosc) { }
+        public static async void AktualizacjaPublikacji(Publikacje publikacja, int ilosc) 
+        {
+            if (!DzialHandlu.PublikacjaNaLiscie(publikacja))
+            {
+                DzialHandlu.DodajDoListy(publikacja);
+                //zapisywanie do pliku będzie z tego miejsca ciężkie bo trzeba jakoś potem to odczytać i potem połączyć
+                //można dodać jakieś ID po którym można potem łączyć te pliki i od razu z niego odczytać jaki rodzaj publikacji
+                //albo wszystko do jednego dużego pliku
+            }
+            publikacja.setilosc(publikacja.Ilosc + ilosc);
+        }
     }
     class Drukarnie
     {
