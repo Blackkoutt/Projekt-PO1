@@ -15,6 +15,16 @@ namespace Wydawnictwo
             this.nazwisko = nazwisko;
             this.email = email;
         }
+
+        //konstruktor do czasopism żeby miały tego samego "autora" czyli wydawnictwo
+        //w publikacjach nie będzie potrzebny drugi konstruktor
+        public Autor()
+        {
+            this.imie = "Wydawnictwo";
+            this.nazwisko = "Wydawnictwo";
+            this.email = "wydawnictwo@gmail.com";
+        }
+
         public String Imie { get { return imie; } }
         public String Nazwisko { get { return nazwisko; } }
         public String Email { get { return email; } }
