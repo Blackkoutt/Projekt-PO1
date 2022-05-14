@@ -116,7 +116,7 @@ namespace Wydawnictwo
         {
             foreach (Autor autorr in ListaAutorow)
             {
-                if (autorr == autor) { return true; }
+                if (autor.Equals(autorr)) { return true; }
             }
             return false;
         }
@@ -125,7 +125,7 @@ namespace Wydawnictwo
         {
             foreach (UmowyODzielo umowa in ListaUmow)
             {
-                if (umowa.Autor == autor) { return true; }
+                if (autor.Equals(umowa.Autor)) { return true; }
             }
             return false;
         }
@@ -134,7 +134,7 @@ namespace Wydawnictwo
         {            
             foreach (UmowyOPrace umowa in ListaUmow)
             {
-                if (umowa.Autor == autor) { return true; }
+                if (autor.Equals(umowa.Autor)) { return true; }
             }
             return false;
         }
