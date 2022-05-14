@@ -11,7 +11,7 @@ namespace Wydawnictwo
         //pisanie do pliku
         //jesli publikacja jest juz na liscie to zwiekszenie jej ilosci 
         //jesli publikacja nie jest na liscie to zapisanie do pliku i 
-        public static async void AktualizacjaPublikacji(Publikacje publikacja, int ilosc) 
+        public static /*-async*/ void AktualizacjaPublikacji(Publikacje publikacja, int ilosc) 
         {
             if (!DzialHandlu.PublikacjaNaLiscie(publikacja))
             {
