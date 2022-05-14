@@ -8,9 +8,9 @@ namespace Wydawnictwo
 {
     class DzialHandlu
     {
-        private List<Publikacje> ListaPublikacji = new List<Publikacje>();
+        private static List<Publikacje> ListaPublikacji = new List<Publikacje>();
 
-        private String NazwaPlikuPublikacje = "Publikacje.txt";
+        private static String NazwaPlikuPublikacje = "Publikacje.txt";
 
         public static void ZlecenieDruku(int ilosc, Publikacje publikacje)
         {
