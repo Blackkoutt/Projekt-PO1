@@ -23,7 +23,7 @@ namespace Wydawnictwo
             this.tytul = tytul;
         }*/
 
-        public override bool Equals(Publikacje pub)
+        public bool Equals(Publikacje pub)
         {
             if(this.autor.Equals(pub.autor) && this.Tytul == pub.Tytul)
                 { return true; }
