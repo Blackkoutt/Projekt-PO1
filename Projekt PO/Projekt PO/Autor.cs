@@ -25,7 +25,7 @@ namespace Wydawnictwo
             this.email = "wydawnictwo@gmail.com";
         }
         
-        public override bool Equals(Autor autor)
+        public bool Equals(Autor autor)
         {
             if(this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko && this.Email == autor.Email)
                 { return true; }
