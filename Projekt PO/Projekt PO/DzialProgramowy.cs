@@ -11,20 +11,41 @@ namespace Wydawnictwo
     {
         private ArrayList ListaAutorow = new ArrayList();
         private ArrayList ListaUmow = new ArrayList();
-        public void UmowaOPrace(double dlugosc, Autor autor)
-        {
+
+        //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
+        public bool UmowaOPrace(double dlugosc, Autor autor)
+        {  
+            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor) 
+                { return false; }
+            
+            if (!this.AutorNaLiscie(autor)) 
+                { ListaAutorow.Add(autor); }
+            
             Umowy umowa = new UmowyOPrace(dlugosc, autor);
             ListaUmow.Add(umowa);
-            ListaAutorow.Add(autor);
+
+            return true;
         }
         //jesli autor ma juz umowe to nie dodajemy go do listy autorow i do listy umow
         //tak samo wyzej 
-        public void UmowaODzielo(Autor autor, Publikacje publikacja)
+
+        //po wykonaniu zlecenia umowa powinna zostać rozwiązana czyli teoretycznie jeśli
+        //potrzebujemy i tak publikacji do tego to można od razu ją usunąć i tworzenie jest bezsensowne
+        //więc albo można ją usuwać ręcznie albo od razu po utworzeniu ewentualnie dodać listę z historią umów
+        public bool UmowaODzielo(Autor autor, Publikacje publikacja)
         {
+            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor) 
+                { return false; }
+            
+            if (!this.AutorNaLiscie(autor)) 
+                { ListaAutorow.Add(autor); }
+
             Umowy umowa = new UmowyODzielo(autor, publikacja);
             ListaUmow.Add(umowa);
-            ListaAutorow.Add(autor);
+
+            return true;
         }
+
         //usuniecie z listy umow obiektu ktory ma danego autora ew usuniecie tez tego obiektu
         public void RozwiazanieUmowy(Autor autor)
         {
@@ -38,6 +59,7 @@ namespace Wydawnictwo
                 if (umowa.Autor == autor)
                 { ListaUmow.Remove(umowa); }
             }
+
             foreach (Autor autorr in ListaAutorow)
             {
                 if (autorr == autor) { ListaAutorow.Remove(autorr); }
@@ -59,7 +81,8 @@ namespace Wydawnictwo
                 }
             }
         }
-        public ArrayList getUmowy() { return ListaUmow; }
+        
+
         public static Boolean WyborDrukarni(int ilosc, Publikacje publikacje)
         {
             if (publikacje is Albumy)
@@ -71,11 +94,12 @@ namespace Wydawnictwo
                 return Drukarnie.DrukujNormalnie(ilosc, publikacje);
             }
         }
-        public ArrayList getAutor()
-        {
-            return ListaAutorow;
-        }
-        //dodaj do pilku i dodaj na liste 
+
+        public ArrayList getUmowy() { return ListaUmow; }
+
+        public ArrayList getAutor() { return ListaAutorow; }
+
+        //dodaj do pliku i dodaj na liste 
         public void DodajAutora(Autor autor)
         {
             ListaAutorow.Add(autor);
@@ -85,5 +109,35 @@ namespace Wydawnictwo
         {
             ListaAutorow.Remove(autor);
         }
+
+
+
+        public bool AutorNaLiscie(Autor autor)
+        {
+            foreach (Autor autorr in ListaAutorow)
+            {
+                if (autorr == autor) { return true; }
+            }
+            return false;
+        }
+        
+        public UmowyODzielo UmowaODzieloNaLiscie(Autor autor)
+        {
+            foreach (UmowyODzielo umowa in ListaUmow)
+            {
+                if (umowa.Autor == autor) { return true; }
+            }
+            return false;
+        }
+        
+        public UmowyOPrace UmowaOPraceNaLiscie(Autor autor)
+        {            
+            foreach (UmowyOPrace umowa in ListaUmow)
+            {
+                if (umowa.Autor == autor) { return true; }
+            }
+            return false;
+        }
+
     }
 }
