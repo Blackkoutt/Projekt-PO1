@@ -10,19 +10,20 @@ namespace Wydawnictwo
     class DzialProgramowy
     {
         private ArrayList ListaAutorow = new ArrayList();
-        private ArrayList ListaUmow = new ArrayList();
+        private List<Tuple<UmowyODzielo?, UmowyOPrace?>> ListaUmow = new List<Tuple<UmowyODzielo?, UmowyOPrace?>>();
 
         //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
         public bool UmowaOPrace(double dlugosc, Autor autor)
         {  
-            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor)) 
+            if (this.UmowaNaLiscie(autor)) 
                 { return false; }
             
             if (!this.AutorNaLiscie(autor)) 
                 { ListaAutorow.Add(autor); }
-            
-            Umowy umowa = new UmowyOPrace(dlugosc, autor);
-            ListaUmow.Add(umowa);
+
+            UmowyOPrace umowa = new UmowyOPrace(dlugosc, autor);
+            Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp = new Tuple<UmowyODzielo?, UmowyOPrace?>(null, umowa);
+            ListaUmow.Add(umowyTyp);
 
             return true;
         }
@@ -34,14 +35,15 @@ namespace Wydawnictwo
         //więc albo można ją usuwać ręcznie albo od razu po utworzeniu ewentualnie dodać listę z historią umów
         public bool UmowaODzielo(Autor autor, Publikacje publikacja)
         {
-            if (this.UmowaOPraceNaLiscie(autor) || this.UmowaODzieloNaLiscie(autor)) 
+            if (this.UmowaNaLiscie(autor)) 
                 { return false; }
             
             if (!this.AutorNaLiscie(autor)) 
                 { ListaAutorow.Add(autor); }
 
-            Umowy umowa = new UmowyODzielo(autor, publikacja);
-            ListaUmow.Add(umowa);
+            UmowyODzielo umowa = new UmowyODzielo(autor, publikacja);
+            Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp = new Tuple<UmowyODzielo?, UmowyOPrace?>(umowa, null);
+            ListaUmow.Add(umowyTyp);
 
             return true;
         }
@@ -49,7 +51,17 @@ namespace Wydawnictwo
         //usuniecie z listy umow obiektu ktory ma danego autora ew usuniecie tez tego obiektu
         public void RozwiazanieUmowy(Autor autor)
         {
-            foreach (UmowyOPrace umowa in ListaUmow)
+            foreach (Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp in ListaUmow)
+            {
+                if(umowyTyp.Item1 != null && autor.Equals(umowyTyp.Item1.Autor))
+                    { ListaUmow.Remove(umowyTyp); break; }
+
+                if(umowyTyp.Item2 != null && autor.Equals(umowyTyp.Item2.Autor))
+                    { ListaUmow.Remove(umowyTyp); break; }
+            }
+
+            /*
+            foreach (UmowyOPrace umowa in ListaUmow[].Item1)
             {
                 if (umowa.Autor == autor)
                 { ListaUmow.Remove(umowa); }
@@ -59,10 +71,11 @@ namespace Wydawnictwo
                 if (umowa.Autor == autor)
                 { ListaUmow.Remove(umowa); }
             }
+            */
 
             foreach (Autor autorr in ListaAutorow)
             {
-                if (autorr == autor) { ListaAutorow.Remove(autorr); }
+                if (autor.Equals(autorr)) { ListaAutorow.Remove(autorr); }
             }
         }
         //tu powinien byc uzyty tylko konstruktor jednoparametrowy publikacja(tytul)
@@ -73,13 +86,13 @@ namespace Wydawnictwo
         // dodanie do listy publikacji ale najpierw publikacja musi zostac wydrukowana
         public void Zlecenie(Autor autor, Publikacje publikacje)
         {
-            foreach (UmowyOPrace umowa in ListaUmow)
+            /*foreach (UmowyOPrace umowa in ListaUmow)
             {
                 if (umowa.Autor == autor)
                 {
 
                 }
-            }
+            }*/
         }
         
 
@@ -95,7 +108,7 @@ namespace Wydawnictwo
             }
         }
 
-        public ArrayList getUmowy() { return ListaUmow; }
+        public List<Tuple<UmowyODzielo?, UmowyOPrace?>> getUmowy() { return ListaUmow; }
 
         public ArrayList getAutor() { return ListaAutorow; }
 
@@ -121,15 +134,26 @@ namespace Wydawnictwo
             return false;
         }
         
-        public bool UmowaODzieloNaLiscie(Autor autor)
+        public bool UmowaNaLiscie(Autor autor)
         {
+            foreach (Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp in ListaUmow)
+            {
+                if (umowyTyp.Item1 != null && autor.Equals(umowyTyp.Item1.Autor))
+                { return true; }
+
+                if (umowyTyp.Item2 != null && autor.Equals(umowyTyp.Item2.Autor))
+                { return true; }
+            }
+            return false;
+
+            /*
             foreach (UmowyODzielo umowa in ListaUmow)
             {
                 if (autor.Equals(umowa.Autor)) { return true; }
             }
-            return false;
+            return false;*/
         }
-        
+        /*
         public bool UmowaOPraceNaLiscie(Autor autor)
         {            
             foreach (UmowyOPrace umowa in ListaUmow)
@@ -137,7 +161,7 @@ namespace Wydawnictwo
                 if (autor.Equals(umowa.Autor)) { return true; }
             }
             return false;
-        }
+        }*/
 
     }
 }
