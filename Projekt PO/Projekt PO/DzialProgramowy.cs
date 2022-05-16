@@ -10,20 +10,19 @@ namespace Wydawnictwo
     class DzialProgramowy
     {
         private ArrayList ListaAutorow = new ArrayList();
-        private List<Tuple<UmowyODzielo?, UmowyOPrace?>> ListaUmow = new List<Tuple<UmowyODzielo?, UmowyOPrace?>>();
+        private ArrayList ListaUmow = new ArrayList();
 
         //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
         public bool UmowaOPrace(double dlugosc, Autor autor)
         {  
-            if (this.UmowaNaLiscie(autor)) 
+            if (this.UmowaODzieloNaLiscie(autor) || this.UmowaOPraceNaLiscie(autor)) 
                 { return false; }
             
             if (!this.AutorNaLiscie(autor)) 
                 { ListaAutorow.Add(autor); }
 
             UmowyOPrace umowa = new UmowyOPrace(dlugosc, autor);
-            Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp = new Tuple<UmowyODzielo?, UmowyOPrace?>(null, umowa);
-            ListaUmow.Add(umowyTyp);
+            ListaUmow.Add(umowa);
 
             return true;
         }
@@ -35,15 +34,14 @@ namespace Wydawnictwo
         //więc albo można ją usuwać ręcznie albo od razu po utworzeniu ewentualnie dodać listę z historią umów
         public bool UmowaODzielo(Autor autor, Publikacje publikacja)
         {
-            if (this.UmowaNaLiscie(autor)) 
+            if (this.UmowaODzieloNaLiscie(autor) || this.UmowaOPraceNaLiscie(autor)) 
                 { return false; }
             
             if (!this.AutorNaLiscie(autor)) 
                 { ListaAutorow.Add(autor); }
 
             UmowyODzielo umowa = new UmowyODzielo(autor, publikacja);
-            Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp = new Tuple<UmowyODzielo?, UmowyOPrace?>(umowa, null);
-            ListaUmow.Add(umowyTyp);
+            ListaUmow.Add(umowa);
 
             return true;
         }
@@ -51,27 +49,15 @@ namespace Wydawnictwo
         //usuniecie z listy umow obiektu ktory ma danego autora ew usuniecie tez tego obiektu
         public void RozwiazanieUmowy(Autor autor)
         {
-            foreach (Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp in ListaUmow)
+            for (int i = 0; i < ListaUmow.Count; i++)
             {
-                if(umowyTyp.Item1 != null && autor.Equals(umowyTyp.Item1.Autor))
-                    { ListaUmow.Remove(umowyTyp); break; }
+                //jeśli za duży tasiemiec dodać var autorr = ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor; i drugie dla UmowyODzielo
+                if (ListaUmow[i] is UmowyOPrace && ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor != null && autor.Equals(ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor)) 
+                    { ListaUmow.Remove(ListaUmow[i]); }
 
-                if(umowyTyp.Item2 != null && autor.Equals(umowyTyp.Item2.Autor))
-                    { ListaUmow.Remove(umowyTyp); break; }
+                if (ListaUmow[i] is UmowyODzielo && ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor != null && autor.Equals(ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor)) 
+                    { ListaUmow.Remove(ListaUmow[i]); }
             }
-
-            /*
-            foreach (UmowyOPrace umowa in ListaUmow[].Item1)
-            {
-                if (umowa.Autor == autor)
-                { ListaUmow.Remove(umowa); }
-            }
-            foreach (UmowyODzielo umowa in ListaUmow)
-            {
-                if (umowa.Autor == autor)
-                { ListaUmow.Remove(umowa); }
-            }
-            */
 
             foreach (Autor autorr in ListaAutorow)
             {
@@ -84,15 +70,11 @@ namespace Wydawnictwo
         // jesli autor ma umowe o prace to wywoluje sie konsturktor ale danej publikacji
         // trzeba najpierw sprawdzic typ danej publikacji
         // dodanie do listy publikacji ale najpierw publikacja musi zostac wydrukowana
-        public void Zlecenie(Autor autor, Publikacje publikacje)
+        public bool Zlecenie(Autor autor, Publikacje publikacje)
         {
-            /*foreach (UmowyOPrace umowa in ListaUmow)
-            {
-                if (umowa.Autor == autor)
-                {
+            if(UmowaOPraceNaLiscie(autor)) { return true; }
 
-                }
-            }*/
+            return false;
         }
         
 
@@ -108,7 +90,7 @@ namespace Wydawnictwo
             }
         }
 
-        public List<Tuple<UmowyODzielo?, UmowyOPrace?>> getUmowy() { return ListaUmow; }
+        public ArrayList getUmowy() { return ListaUmow; }
 
         public ArrayList getAutor() { return ListaAutorow; }
 
@@ -133,35 +115,24 @@ namespace Wydawnictwo
             }
             return false;
         }
-        
-        public bool UmowaNaLiscie(Autor autor)
-        {
-            foreach (Tuple<UmowyODzielo?, UmowyOPrace?> umowyTyp in ListaUmow)
-            {
-                if (umowyTyp.Item1 != null && autor.Equals(umowyTyp.Item1.Autor))
-                { return true; }
 
-                if (umowyTyp.Item2 != null && autor.Equals(umowyTyp.Item2.Autor))
-                { return true; }
-            }
-            return false;
-
-            /*
-            foreach (UmowyODzielo umowa in ListaUmow)
-            {
-                if (autor.Equals(umowa.Autor)) { return true; }
-            }
-            return false;*/
-        }
-        /*
         public bool UmowaOPraceNaLiscie(Autor autor)
-        {            
-            foreach (UmowyOPrace umowa in ListaUmow)
-            {
-                if (autor.Equals(umowa.Autor)) { return true; }
+        {
+            for (int i = 0; i < ListaUmow.Count; i++)
+            { 
+                if (ListaUmow[i] is UmowyOPrace && autor.Equals(ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor)) { return true; } 
             }
             return false;
-        }*/
+        }
+        
+        public bool UmowaODzieloNaLiscie(Autor autor)
+        {
+            for (int i = 0; i < ListaUmow.Count; i++)
+            { 
+                if (ListaUmow[i] is UmowyODzielo && autor.Equals(ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor)) { return true; } 
+            }
+            return false;
+        }
 
     }
 }
