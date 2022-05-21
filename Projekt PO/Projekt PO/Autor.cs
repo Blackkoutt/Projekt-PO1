@@ -20,9 +20,9 @@ namespace Wydawnictwo
         //w publikacjach nie będzie potrzebny drugi konstruktor
         public Autor()
         {
-            this.imie = "Wydawnictwo";
-            this.nazwisko = "Wydawnictwo";
-            this.email = "wydawnictwo@gmail.com";
+            this.imie = "Wydawnictwo ePress";
+            this.nazwisko = "Wydawnictwo ePress";
+            this.email = "ePress@gmail.com";
         }
         
         public bool Equals(Autor autor)
