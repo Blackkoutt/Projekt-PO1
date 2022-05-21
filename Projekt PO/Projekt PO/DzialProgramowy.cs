@@ -59,12 +59,13 @@ namespace Wydawnictwo
                     { ListaUmow.Remove(ListaUmow[i]); }
             }
 
-            foreach (Autor autorr in ListaAutorow)
+            //po rozwiazaniu umowy napisane przez autora książki powinny być dalej sprzedawane więc autor też powinien zostać
+            /*foreach (Autor autorr in ListaAutorow)
             {
                 if (autor.Equals(autorr)) { ListaAutorow.Remove(autorr); }
-            }
+            }*/
         }
-        //tu powinien byc uzyty tylko konstruktor jednoparametrowy publikacja(tytul)
+        
         // jesli autor ma umowe o prace to moze zrealizowac zlecenie
         // jesli autor nie ma umowy o prace to nie moze zrealizowac zlecenia musi najpiew posiadac umowe
         // jesli autor ma umowe o prace to wywoluje sie konsturktor ale danej publikacji
@@ -75,6 +76,14 @@ namespace Wydawnictwo
         // potrzebne do stworzenia publikacji i dodać ją na liste
         public bool Zlecenie(Autor autor, String rodzaj/*Publikacje publikacja*/)
         {
+            //Niestety jeśli wszędzie mamy namespace Wydawnictwo
+            //to jeśli jakiś idiota będzie chciał napisać książkę w kategorii Autor
+            //wywali błąd bo autor to nie publikacja
+            List<String> zakazaneNazwy = new List<String>() { "Autor", "Umowy", "UmowyODzielo", "UmowyOPrace", "DzialHandlu", "Drukarnie", "DzialDruku" };
+            
+            if(zakazaneNazwy.Contains(rodzaj))
+                { Console.WriteLine("Niepoprawny rodzaj publikacji\n"); return false; }
+
             if(UmowaOPraceNaLiscie(autor)) 
             {
                 String nazwaTypu = "Wydawnictwo." + rodzaj;
@@ -86,7 +95,7 @@ namespace Wydawnictwo
                 Publikacje pub = Activator.CreateInstance(typ, autor, "tytul") as Publikacje;
 
                 if (pub == null)
-                    { Console.WriteLine("Nie udało się stworzyć zlecenia"); return false; }
+                    { Console.WriteLine("Nie udało się stworzyć zlecenia\n"); return false; }
 
                 DzialHandlu.DodajDoListy(pub);
                 return true; 
