@@ -70,24 +70,37 @@ namespace Wydawnictwo
         // jesli autor ma umowe o prace to wywoluje sie konsturktor ale danej publikacji
         // trzeba najpierw sprawdzic typ danej publikacji
         // dodanie do listy publikacji ale najpierw publikacja musi zostac wydrukowana
-        public bool Zlecenie(Autor autor, Publikacje publikacje)
-        {
-            if(UmowaOPraceNaLiscie(autor)) { return true; }
 
+        // to jest zlecenie napisania książki więc powinno tylko dostawać informacje
+        // potrzebne do stworzenia publikacji i dodać ją na liste
+        public bool Zlecenie(Autor autor, String rodzaj/*Publikacje publikacja*/)
+        {
+            if(UmowaOPraceNaLiscie(autor)) 
+            {
+                String nazwaTypu = "Wydawnictwo." + rodzaj;
+                Type typ = Type.GetType(nazwaTypu);
+                
+                if (typ == null)
+                    typ = Type.GetType("Wydawnictwo.Inne");
+
+                Publikacje pub = Activator.CreateInstance(typ, autor, "tytul") as Publikacje;
+
+                if (pub == null)
+                    { Console.WriteLine("Nie udało się stworzyć zlecenia"); return false; }
+
+                DzialHandlu.DodajDoListy(pub);
+                return true; 
+            }
             return false;
         }
         
 
         public static Boolean WyborDrukarni(int ilosc, Publikacje publikacje)
         {
-            if (publikacje is Albumy)
-            {
-                return Drukarnie.DrukujDobrze(ilosc, publikacje);
-            }
+            if (publikacje is Albumy) 
+                { return Drukarnie.DrukujDobrze(ilosc, publikacje); }
             else
-            {
-                return Drukarnie.DrukujNormalnie(ilosc, publikacje);
-            }
+                { return Drukarnie.DrukujNormalnie(ilosc, publikacje); }
         }
 
         public ArrayList getUmowy() { return ListaUmow; }
@@ -104,8 +117,6 @@ namespace Wydawnictwo
         {
             ListaAutorow.Remove(autor);
         }
-
-
 
         public bool AutorNaLiscie(Autor autor)
         {
