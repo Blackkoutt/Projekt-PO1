@@ -15,10 +15,10 @@ namespace Wydawnictwo
         //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
         public bool UmowaOPrace(double dlugosc, Autor autor)
         {  
-            if (this.UmowaODzieloNaLiscie(autor) || this.UmowaOPraceNaLiscie(autor)) 
+            if (UmowaODzieloNaLiscie(autor) || UmowaOPraceNaLiscie(autor)) 
                 { return false; }
             
-            if (!this.AutorNaLiscie(autor)) 
+            if (!AutorNaLiscie(autor)) 
                 { ListaAutorow.Add(autor); }
 
             UmowyOPrace umowa = new UmowyOPrace(dlugosc, autor);
@@ -34,10 +34,10 @@ namespace Wydawnictwo
         //więc albo można ją usuwać ręcznie albo od razu po utworzeniu ewentualnie dodać listę z historią umów
         public bool UmowaODzielo(Autor autor, Publikacje publikacja)
         {
-            if (this.UmowaODzieloNaLiscie(autor) || this.UmowaOPraceNaLiscie(autor)) 
+            if (UmowaODzieloNaLiscie(autor) || UmowaOPraceNaLiscie(autor)) 
                 { return false; }
             
-            if (!this.AutorNaLiscie(autor)) 
+            if (!AutorNaLiscie(autor)) 
                 { ListaAutorow.Add(autor); }
 
             UmowyODzielo umowa = new UmowyODzielo(autor, publikacja);
@@ -74,7 +74,7 @@ namespace Wydawnictwo
 
         // to jest zlecenie napisania książki więc powinno tylko dostawać informacje
         // potrzebne do stworzenia publikacji i dodać ją na liste
-        public bool Zlecenie(Autor autor, String rodzaj/*Publikacje publikacja*/)
+        public bool Zlecenie(Autor autor, String rodzaj, String tytul, DzialHandlu DH/*Publikacje publikacja*/)
         {
             //Niestety jeśli wszędzie mamy namespace Wydawnictwo
             //to jeśli jakiś idiota będzie chciał napisać książkę w kategorii Autor
@@ -92,24 +92,24 @@ namespace Wydawnictwo
                 if (typ == null)
                     typ = Type.GetType("Wydawnictwo.Inne");
 
-                Publikacje pub = Activator.CreateInstance(typ, autor, "tytul") as Publikacje;
+                Publikacje pub = Activator.CreateInstance(typ, autor, tytul) as Publikacje;
 
                 if (pub == null)
                     { Console.WriteLine("Nie udało się stworzyć zlecenia\n"); return false; }
 
-                DzialHandlu.DodajDoListy(pub);
+                DH.DodajDoListy(pub);
                 return true; 
             }
             return false;
         }
         
 
-        public static Boolean WyborDrukarni(int ilosc, Publikacje publikacje)
+        public Boolean WyborDrukarni(int ilosc, Publikacje publikacje, DzialHandlu DH, Drukarnie Dr)
         {
             if (publikacje is Albumy) 
-                { return Drukarnie.DrukujDobrze(ilosc, publikacje); }
+                { return Dr.DrukujDobrze(ilosc, publikacje, DH); }
             else
-                { return Drukarnie.DrukujNormalnie(ilosc, publikacje); }
+                { return Dr.DrukujNormalnie(ilosc, publikacje, DH); }
         }
 
         public ArrayList getUmowy() { return ListaUmow; }
