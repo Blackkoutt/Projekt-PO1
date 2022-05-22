@@ -12,9 +12,9 @@ namespace Wydawnictwo
 
         private static String NazwaPlikuPublikacje = "Publikacje.txt";
 
-        public static void ZlecenieDruku(int ilosc, Publikacje publikacje)
+        public void ZlecenieDruku(int ilosc, Publikacje publikacje, DzialProgramowy DP, Drukarnie Dr)
         {
-            if (DzialProgramowy.WyborDrukarni(ilosc, publikacje))
+            if (DP.WyborDrukarni(ilosc, publikacje, this, Dr))
             {
                 Console.WriteLine("Pomyslnie wydrukowano " + publikacje.Tytul + " w nastepujacej liczbie egzemplarzy: " + ilosc);
                 if (!PublikacjaNaLiscie(publikacje))
@@ -22,7 +22,7 @@ namespace Wydawnictwo
             }
         }
         //dodaj do listy publikacji jesli drukarnia zwrocila true po wydrukowaniu
-        public static void DodajDoListy(Publikacje publikacje)
+        public void DodajDoListy(Publikacje publikacje)
         {
             ListaPublikacji.Add(publikacje);
         }
@@ -39,12 +39,12 @@ namespace Wydawnictwo
             get { return ListaPublikacji; }
         }
 
-        public static String PlikPublikacje
+        public String PlikPublikacje
         {
             get { return NazwaPlikuPublikacje; }
         }
 
-        public static Boolean PublikacjaNaLiscie(Publikacje publikacja)
+        public Boolean PublikacjaNaLiscie(Publikacje publikacja)
         {
             foreach (Publikacje publikacje in ListaPublikacji)
             {
