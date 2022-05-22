@@ -11,11 +11,11 @@ namespace Wydawnictwo
         //pisanie do pliku
         //jesli publikacja jest juz na liscie to zwiekszenie jej ilosci 
         //jesli publikacja nie jest na liscie to zapisanie do pliku i 
-        public static /*-async*/ void AktualizacjaPublikacji(Publikacje publikacja, int ilosc) 
+        public static /*-async*/ void AktualizacjaPublikacji(Publikacje publikacja, int ilosc, DzialHandlu DH) 
         {
-            if (!DzialHandlu.PublikacjaNaLiscie(publikacja))
+            if (!DH.PublikacjaNaLiscie(publikacja))
             {
-                DzialHandlu.DodajDoListy(publikacja);
+                DH.DodajDoListy(publikacja);
                 //zapisywanie do pliku będzie z tego miejsca ciężkie bo trzeba jakoś potem to odczytać i potem połączyć
                 //można dodać jakieś ID po którym można potem łączyć te pliki i od razu z niego odczytać jaki rodzaj publikacji
                 //albo wszystko do jednego dużego pliku
@@ -25,14 +25,14 @@ namespace Wydawnictwo
     }
     class Drukarnie
     {
-        public static Boolean DrukujDobrze(int ilosc, Publikacje publikacje)
+        public Boolean DrukujDobrze(int ilosc, Publikacje publikacje, DzialHandlu DH)
         {
-            DzialDruku.AktualizacjaPublikacji(publikacje, ilosc);
+            DzialDruku.AktualizacjaPublikacji(publikacje, ilosc, DH);
             return true;
         }
-        public static Boolean DrukujNormalnie(int ilosc, Publikacje publikacje)
+        public Boolean DrukujNormalnie(int ilosc, Publikacje publikacje, DzialHandlu DH)
         {
-            DzialDruku.AktualizacjaPublikacji(publikacje, ilosc);
+            DzialDruku.AktualizacjaPublikacji(publikacje, ilosc, DH);
             return true;
         }
     }
