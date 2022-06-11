@@ -35,7 +35,6 @@ namespace Wydawnictwo
         {
             get { return autor.Imie + " " + autor.Nazwisko; }
         }
-
     }
     class UmowyOPrace : Umowy
     {
@@ -46,10 +45,11 @@ namespace Wydawnictwo
             this.dlugosc = dlugosc;
         }
 
-
         //na zapas, jeśli nie będzie potrzebna usunąć
-
-
+        public double Dlugosc
+        {
+            get { return dlugosc; }
+        }
     }
     class UmowyODzielo : Umowy
     {
@@ -65,8 +65,5 @@ namespace Wydawnictwo
         {
             get { return publikacja; }
         }
-
-
-
     }
 }

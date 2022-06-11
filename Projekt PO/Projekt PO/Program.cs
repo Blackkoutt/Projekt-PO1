@@ -61,12 +61,22 @@ class Program
                             {
                                 case "1":
                                     {
-                                        foreach (Publikacje p in Inwentarz)
+                                        if (Inwentarz.Count==0)
                                         {
-                                            Console.WriteLine( "[" + np + "]" + p.getAutor);
+                                            Console.WriteLine("Brak dostępnych pozycji w katalogu");
+                                            Thread.Sleep(700);
+                                            Console.Clear();
                                         }
-                                        Console.WriteLine("Ktora z ksiazek chcesz kupic?");
-
+                                        else
+                                        {
+                                            foreach (Publikacje p in Inwentarz)
+                                            {
+                                                //nie wypisuje konkretnych pozycji
+                                                Console.WriteLine("[" + np + "]" + p.getAutor + p.Tytul);
+                                            }
+                                            Console.WriteLine("Ktora z ksiazek chcesz kupic?");
+                                            Thread.Sleep(500);
+                                        }
                                         break;
                                     }
                                 case "2":
@@ -74,7 +84,7 @@ class Program
                                 break;
                                 case "3":
                                     return;
-                                break;
+                                //break;
 
                             }
                         }
@@ -83,7 +93,6 @@ class Program
 
                 case "2":
                     {
-                        //po dwoch porobach wprowadzeniach hasla jest problem 
                         Console.Clear();
                         string haslo;
                         Console.WriteLine("Wprowadz haslo:");
@@ -241,6 +250,7 @@ class Program
                                         {
                                             Console.WriteLine("Niepoprawny wybor. Sprobuj jeszcze raz");
                                             rk = int.Parse(Console.ReadLine());
+                                            Console.Clear();
                                         }
                                         if (rk == 1)
                                         {
@@ -651,7 +661,7 @@ class Program
                     {
                         Console.WriteLine("Wybierz jedna z podanych opcji");
                         Thread.Sleep(800);
-
+                        Console.Clear();
                         break;
                     }
             }
