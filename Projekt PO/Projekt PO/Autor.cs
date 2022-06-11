@@ -15,11 +15,10 @@ namespace Wydawnictwo
             this.nazwisko = nazwisko;
             this.email = email;
         }
-        //konstruktor do sklepu, zeby nie musiec podawac maila
         public Autor(String imie, String nazwisko)
         {
-            this.imie=imie;
-            this.nazwisko=nazwisko;
+            this.imie = imie;
+            this.nazwisko = nazwisko;
             email = "email";
         }
 
@@ -31,14 +30,6 @@ namespace Wydawnictwo
             this.nazwisko = "Wydawnictwo ePress";
             this.email = "ePress@gmail.com";
         }
-        
-        public bool Equals(Autor autor)
-        {
-            if(autor != null && this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko && this.Email == autor.Email)
-                { return true; }
-            return false;
-        }
-
         public String Imie { get { return imie; } }
         public String Nazwisko { get { return nazwisko; } }
         public String Email { get { return email; } }

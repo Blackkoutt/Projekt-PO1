@@ -10,8 +10,8 @@ namespace Wydawnictwo
     {
         //dodac cos do konstruktorow
         protected Autor autor;
-        
-        
+
+
         /*public Umowy(double dlugosc, Autor autor)
         {
             this.autor = autor; this.dlugosc = dlugosc;
@@ -31,6 +31,11 @@ namespace Wydawnictwo
         {
             get { return autor; }
         }
+        public String getAutor
+        {
+            get { return autor.Imie + " " + autor.Nazwisko; }
+        }
+
     }
     class UmowyOPrace : Umowy
     {
@@ -41,25 +46,27 @@ namespace Wydawnictwo
             this.dlugosc = dlugosc;
         }
 
+
         //na zapas, jeśli nie będzie potrzebna usunąć
-        public double Dlugosc
-        { 
-            get { return dlugosc; } 
-        }
+
+
     }
     class UmowyODzielo : Umowy
     {
         protected Publikacje publikacja;
 
         public UmowyODzielo(Autor autor, Publikacje publikacja) : base(autor)
-        { 
+        {
             this.publikacja = publikacja;
         }
 
         //na zapas, jeśli nie będzie potrzebna usunąć
-        public Publikacje Publikacja 
-        { 
-            get { return publikacja; } 
+        public Publikacje Publikacja
+        {
+            get { return publikacja; }
         }
+
+
+
     }
 }

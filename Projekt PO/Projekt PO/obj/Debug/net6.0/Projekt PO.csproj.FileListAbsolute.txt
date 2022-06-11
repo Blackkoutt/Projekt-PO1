@@ -18,23 +18,18 @@ C:\Users\Mateusz\Desktop\folder1\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net
 C:\Users\Mateusz\Desktop\folder1\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.pdb
 C:\Users\Mateusz\Desktop\folder1\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.genruntimeconfig.cache
 C:\Users\Mateusz\Desktop\folder1\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\ref\Projekt PO.dll
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.csproj.AssemblyReference.cache
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.AssemblyInfoInputs.cache
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.AssemblyInfo.cs
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.csproj.CoreCompileInputs.cache
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.dll
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\refint\Projekt PO.dll
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.pdb
-C:\bin\Debug\net6.0\Projekt PO.exe
-C:\bin\Debug\net6.0\Projekt PO.deps.json
-C:\bin\Debug\net6.0\Projekt PO.runtimeconfig.json
-C:\bin\Debug\net6.0\Projekt PO.dll
-C:\bin\Debug\net6.0\Projekt PO.pdb
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.genruntimeconfig.cache
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\ref\Projekt PO.dll
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.exe
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.deps.json
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.runtimeconfig.json
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.dll
-C:\Users\msoko\OneDrive\Pulpit\Nowy folder (5)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.pdb
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.exe
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.deps.json
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.runtimeconfig.json
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.dll
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\bin\Debug\net6.0\Projekt PO.pdb
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.csproj.AssemblyReference.cache
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.AssemblyInfoInputs.cache
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.AssemblyInfo.cs
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.csproj.CoreCompileInputs.cache
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.dll
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\refint\Projekt PO.dll
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.pdb
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\Projekt PO.genruntimeconfig.cache
+C:\Users\msoko\OneDrive\Pulpit\Nowy folder (4)\Projekt-PO1\Projekt PO\Projekt PO\obj\Debug\net6.0\ref\Projekt PO.dll
