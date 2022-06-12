@@ -18,7 +18,8 @@ class Program
     }
     static void Main(string[] args)
     {
-        string wybor, wybor1,  imie, nazwisko, mail, tytul;
+        char wybor_logowania, wybor_opcji;
+        string imie, nazwisko, mail, tytul;
         int ru, rk, x;
         double du;
 
@@ -29,11 +30,13 @@ class Program
             Console.WriteLine();
             Console.WriteLine("1. Zaloguj sie jako klient");
             Console.WriteLine("2. Zaloguj sie jako pracownik");
-            wybor = Console.ReadLine();
-            switch (wybor)
+            ConsoleKeyInfo key = Console.ReadKey();
+            wybor_logowania = key.KeyChar;//Console.ReadLine();
+
+            switch (wybor_logowania)
             {
 
-                case "1":
+                case '1':
                 
                     {
 
@@ -47,19 +50,20 @@ class Program
                         ArrayList Inwentarz = new ArrayList();
                         Inwentarz = sklep.getlista();
 
-                        while (wybor=="1")
+                        while (wybor_logowania=='1')
                         {
                             Console.WriteLine("Witamy w naszym sklepie");
                             Console.WriteLine("Wybierz: ");
                             Console.WriteLine("[1] aby zobaczyc katalog");
                             Console.WriteLine("[2] aby przejsc do strony glownej");
                             Console.WriteLine("[3] aby zakonczyc program");
-                            wybor1 = Console.ReadLine();
+                            key = Console.ReadKey();
+                            wybor_opcji = key.KeyChar;
                             Console.Clear();
                             int np=1;
-                            switch (wybor1)
+                            switch (wybor_opcji)
                             {
-                                case "1":
+                                case '1':
                                     {
                                         if (Inwentarz.Count==0)
                                         {
@@ -72,17 +76,17 @@ class Program
                                             foreach (Publikacje p in Inwentarz)
                                             {
                                                 //nie wypisuje konkretnych pozycji
-                                                Console.WriteLine("[" + np + "]" + p.getAutor + p.Tytul);
+                                                Console.WriteLine("[" + np++ + "]" + p.getAutor + p.GetType());
                                             }
                                             Console.WriteLine("Ktora z ksiazek chcesz kupic?");
                                             Thread.Sleep(500);
                                         }
                                         break;
                                     }
-                                case "2":
-                                    wybor = "2";
+                                case '2':
+                                    wybor_logowania = '2';
                                 break;
-                                case "3":
+                                case '3':
                                     return;
                                 //break;
 
@@ -91,7 +95,7 @@ class Program
                         break;
                     }
 
-                case "2":
+                case '2':
                     {
                         Console.Clear();
                         string haslo;
@@ -116,7 +120,7 @@ class Program
                         DzialProgramowy DP = new DzialProgramowy();
                         DzialHandlu DH = new DzialHandlu();
                         Drukarnie drukarnie = new Drukarnie();
-                        while (wybor=="2")
+                        while (wybor_logowania=='2')
                         {
                             Console.WriteLine("Wybierz: ");
                             Console.WriteLine("[1] dodaj autora");
@@ -129,12 +133,13 @@ class Program
                             Console.WriteLine("[8] przejdz do strony glownej");
                             Console.WriteLine("[9] zakoncz program");
                             Thread.Sleep(1000);
-                            wybor1 = Console.ReadLine();
+                            key = Console.ReadKey();
+                            wybor_opcji = key.KeyChar;
                             Thread.Sleep(1000);
                             Console.Clear();
-                            switch (wybor1)
+                            switch (wybor_opcji)
                             {
-                                case "1":
+                                case '1':
                                     {
                                         Console.WriteLine("Podaj imie autora:");
                                         imie = Console.ReadLine();
@@ -148,7 +153,7 @@ class Program
                                         Console.Clear();
                                         break;
                                     }
-                                case "2":
+                                case '2':
                                     {
                                         ArrayList autorzy = new ArrayList();
                                         autorzy = DP.getAutor();
@@ -171,7 +176,7 @@ class Program
                                         Console.Clear();
                                         break;
                                     }
-                                case "3":
+                                case '3':
                                     ArrayList autorzy1 = new ArrayList();
                                     autorzy1 = DP.getAutor();
                                     int na=1;
@@ -208,7 +213,7 @@ class Program
                                     }
                                     Console.Clear();
                                     break;
-                                case "4":
+                                case '4':
                                     Console.WriteLine("Jaka umowe chcesz podpisac?");
                                     Console.WriteLine("[1] umowa o prace");
                                     Console.WriteLine("[2] umowa o dzielo");
@@ -304,7 +309,7 @@ class Program
                                         Console.Clear();
                                     }
                                     break;
-                                case "5":
+                                case '5':
                                     int zk;
                                     String wk;
                                     int ia = 1, wa; 
@@ -577,7 +582,7 @@ class Program
                                     }
 
                                     break;
-                                case "6":
+                                case '6':
                                     ArrayList umowy = new ArrayList();
                                     umowy = DP.getUmowy();
                                     Console.WriteLine("Autorzy na umowie o prace:");
@@ -600,7 +605,7 @@ class Program
                                     }
                                     break;
 
-                                case "7":
+                                case '7':
                                     ArrayList rozwiazanie = new ArrayList();
                                     rozwiazanie = DP.getUmowy();
                                     x = 1;
@@ -635,11 +640,11 @@ class Program
 
 
                                         break;
-                                case "8":
-                                    wybor = "1";
+                                case '8':
+                                    wybor_logowania = '1';
                                     break;
 
-                                case "9":
+                                case '9':
                                     return ;
                                 default:
                                     {
