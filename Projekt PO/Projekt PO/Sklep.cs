@@ -14,16 +14,41 @@ namespace Wydawnictwo
         private ArrayList inwentarz = new ArrayList();
         private string line;
 
+
+        /*public void WczytajZPliku()
+        {
+            
+        }*/
+
         //Wczytywanie z pliku, na razie jest tutaj pozniej to zmienie
         public void WczytajZPlikuKsiazki()
         {
             StreamReader sr = new StreamReader("ksiazki.txt");
             while ((line = sr.ReadLine()) != null)
             {
+                List<String> zakazaneNazwy = new List<String>() { "Autor", "Umowy", "UmowyODzielo", "UmowyOPrace", "DzialHandlu", "Drukarnie", "DzialDruku" };
+
                 string[] s = line.Split(",");
                 Autor autor = new Autor(s[0], s[1]);
                 //Wlasni przez to chce zmienic te wszyskie klasy na rodzaje, bo pozniej ciezko to z pliku wczytac
-                if (s[4]=="sensacyjne")
+
+                s[4] = DoWielkiej(s[4]);
+
+                if (zakazaneNazwy.Contains(s[4]))
+                { Console.WriteLine("Niepoprawny rodzaj publikacji\n"); s[4] = "[BezNazwy]"; }
+
+                String nazwaTypu = "Wydawnictwo." + s[4];
+                Type typ = Type.GetType(nazwaTypu);
+
+                if (typ == null)
+                    typ = Type.GetType("Wydawnictwo.Inne");
+
+                Publikacje publikacje = Activator.CreateInstance(typ, autor, s[2]) as Publikacje; // Można tu ifa dodać jakiegoś ale nie powinno być w tym miejscu problemu
+                publikacje.setilosc(200); // Proponuję dodać do pliku też ilość bo z 10 pojawi się 200 po restarcie
+                inwentarz.Add(publikacje);
+
+
+                /*if (s[4]=="sensacyjne")
                 {
                     
                     Sensacyjne publikacje = new Sensacyjne(autor, s[2]);
@@ -69,7 +94,7 @@ namespace Wydawnictwo
                     publikacje.setilosc(200);
                     inwentarz.Add(publikacje);
 
-                }
+                }*/
                 
             }
             sr.Close();
@@ -108,5 +133,14 @@ namespace Wydawnictwo
         {
             return inwentarz;
         }
+
+        public string DoWielkiej(string nazwa)
+        {
+            if (Char.IsUpper(nazwa[0]))
+                return nazwa;
+            else
+                return Char.ToUpper(nazwa[0]) + nazwa.Substring(1);
+        }
+
     }
 }
