@@ -55,10 +55,16 @@ namespace Wydawnictwo
             {
                 //jeśli za duży tasiemiec dodać var autorr = ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor; i drugie dla UmowyODzielo
                 if (ListaUmow[i] is UmowyOPrace && ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor != null && autor.Equals(ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor))
-                { ListaUmow.Remove(ListaUmow[i]); }
+                { 
+                        ListaUmow.Remove(ListaUmow[i]);
+                        break;
+                }
 
                 if (ListaUmow[i] is UmowyODzielo && ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor != null && autor.Equals(ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor))
-                { ListaUmow.Remove(ListaUmow[i]); }
+                { 
+                        ListaUmow.Remove(ListaUmow[i]);
+                        break;
+                }
             }
 
             //po rozwiazaniu umowy napisane przez autora książki powinny być dalej sprzedawane więc autor też powinien zostać
