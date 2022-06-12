@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mateusz\\Desktop\\projektPO interfejt\\Projekt-PO1\\Projekt PO\\Projekt PO\\Projekt PO.csproj",
+      "projectUniqueName": "C:\\Users\\Mateusz\\Desktop\\projektPO interfejt 4\\Projekt-PO1\\Projekt PO\\Projekt PO\\Projekt PO.csproj",
       "projectName": "Projekt PO",
-      "projectPath": "C:\\Users\\Mateusz\\Desktop\\projektPO interfejt\\Projekt-PO1\\Projekt PO\\Projekt PO\\Projekt PO.csproj",
+      "projectPath": "C:\\Users\\Mateusz\\Desktop\\projektPO interfejt 4\\Projekt-PO1\\Projekt PO\\Projekt PO\\Projekt PO.csproj",
       "packagesPath": "C:\\Users\\Mateusz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mateusz\\Desktop\\projektPO interfejt\\Projekt-PO1\\Projekt PO\\Projekt PO\\obj\\",
+      "outputPath": "C:\\Users\\Mateusz\\Desktop\\projektPO interfejt 4\\Projekt-PO1\\Projekt PO\\Projekt PO\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Mateusz\\AppData\\Roaming\\NuGet\\NuGet.Config",

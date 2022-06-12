@@ -20,7 +20,7 @@ namespace Wydawnictwo
                 //zapisywanie do pliku będzie z tego miejsca ciężkie bo trzeba jakoś potem to odczytać i potem połączyć
                 //można dodać jakieś ID po którym można potem łączyć te pliki i od razu z niego odczytać jaki rodzaj publikacji
                 //albo wszystko do jednego dużego pliku
-                StreamWriter sw = new("Publikacje.txt");
+                StreamWriter sw = new StreamWriter("Publikacje.txt");
                 sw.WriteLine(publikacja.Tytul);
                 sw.WriteLine("Ilosc w magazynie: " + publikacja.Ilosc);
                 sw.Close();

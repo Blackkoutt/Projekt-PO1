@@ -11,9 +11,9 @@ namespace Wydawnictwo
     {
         private ArrayList ListaAutorow = new ArrayList();
         private ArrayList ListaUmow = new ArrayList();
-       // private DzialHandlu DH;
-        private Drukarnie DR;
-       // public DzialProgramowy() { DH = new DzialHandlu(); DR = new Drukarnie(); }
+        // private DzialHandlu DH;
+        //private Drukarnie DR; //= new Drukarnie();
+      // public DzialProgramowy() { DH = new DzialHandlu(); DR = new Drukarnie(); }
         //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
         public bool UmowaOPrace(double dlugosc, Autor autor)
         {
@@ -56,7 +56,7 @@ namespace Wydawnictwo
                 //jeśli za duży tasiemiec dodać var autorr = ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor; i drugie dla UmowyODzielo
                 if (ListaUmow[i] is UmowyOPrace && ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor != null && autor.Equals(ListaUmow.Cast<UmowyOPrace>().ToList()[i].Autor))
                 { ListaUmow.Remove(ListaUmow[i]); }
-
+                //BLAD
                 if (ListaUmow[i] is UmowyODzielo && ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor != null && autor.Equals(ListaUmow.Cast<UmowyODzielo>().ToList()[i].Autor))
                 { ListaUmow.Remove(ListaUmow[i]); }
             }
@@ -108,13 +108,18 @@ namespace Wydawnictwo
 
         public Boolean WyborDrukarni(int ilosc, Publikacje publikacje)
         {
+            Drukarnie DR=new Drukarnie();
             if (publikacje is Albumy)
             { return DR.DrukujDobrze(ilosc, publikacje); }
             else
             { return DR.DrukujNormalnie(ilosc, publikacje); }
         }
 
-        public ArrayList getUmowy() { return ListaUmow; }
+        public ArrayList getUmowy() 
+        {
+            if (ListaUmow.Count == 0) throw new PustaListaException("Lista umow jest pusta");
+            return ListaUmow; 
+        }
 
         public ArrayList getAutor() { return ListaAutorow; }
 

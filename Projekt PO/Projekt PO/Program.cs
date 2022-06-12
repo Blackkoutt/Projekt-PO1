@@ -8,6 +8,10 @@ class HasloException : Exception
 {
     public HasloException(string message) : base(message) { }
 }
+class PustaListaException : Exception 
+{
+    public PustaListaException(string message) : base(message) { }
+}
 class Program
 {
     public static bool Haslo(string haslo)
@@ -16,12 +20,49 @@ class Program
         if (haslo1 == haslo) { return true; }
         throw new HasloException("Niepoprawne haslo");
     }
+    public static bool Inwentarz(ArrayList Inwentarz)
+    {
+        if (Inwentarz.Count != 0) return true;
+        throw new PustaListaException("Brak dostepnych pozycji w katalogu");
+    }
+    public static bool Autor(ArrayList autor)
+    {
+        if(autor.Count != 0) return true;
+        throw new PustaListaException("Brak jakichkolwiek autorow na liscie autorow");
+    }
+    public static int WyborAutora()
+    {
+        int ia = 1, wa;
+        ArrayList zdk = new ArrayList();
+        DzialProgramowy DP=new DzialProgramowy();
+        /*if (DP.getUmowy().Count == 0)
+        throw new PustaListaException("Brak jakichkolwiek autorow na liscie umow");*/
+        zdk = DP.getUmowy();
+        Console.WriteLine("Wybierz autora:");
+        foreach (Umowy uop in zdk)
+        {
+            if (uop is UmowyOPrace)
+            {
+                Console.WriteLine("[" + ia + "]" + uop.getAutor);
+                ia++;
+            }
+        }
+        wa = int.Parse(Console.ReadLine());
+        while (wa < 0 && wa > ia)
+        {
+            Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
+            wa = int.Parse(Console.ReadLine());
+        }
+        return wa;
+    }
+
     static void Main(string[] args)
     {
-        char wybor_logowania, wybor_opcji;
+        char wybor_logowania, wybor_opcji, wybor_umowy;
+        int wybor_ksiazki;
         string imie, nazwisko, mail, tytul;
         int ru, rk, x;
-        double du;
+        double dlugosc_umowy;
 
         while(true)
         {
@@ -47,8 +88,8 @@ class Program
                         Sklep sklep = new Sklep();
                         sklep.WczytajZPlikuKsiazki();
                         sklep.WczytajZPlikuCzasopisma();
-                        ArrayList Inwentarz = new ArrayList();
-                        Inwentarz = sklep.getlista();
+                        ArrayList inwentarz = new ArrayList();
+                        inwentarz = sklep.getlista();
 
                         while (wybor_logowania=='1')
                         {
@@ -65,22 +106,21 @@ class Program
                             {
                                 case '1':
                                     {
-                                        if (Inwentarz.Count==0)
+                                        try { Inwentarz(inwentarz); }
+                                        catch (PustaListaException PL) 
                                         {
-                                            Console.WriteLine("Brak dostępnych pozycji w katalogu");
+                                            Console.WriteLine(PL.Message);
                                             Thread.Sleep(700);
                                             Console.Clear();
+                                           break;
                                         }
-                                        else
-                                        {
-                                            foreach (Publikacje p in Inwentarz)
+                                            foreach (Publikacje p in inwentarz)
                                             {
                                                 //nie wypisuje konkretnych pozycji
                                                 Console.WriteLine("[" + np++ + "]" + p.getAutor + p.GetType());
                                             }
                                             Console.WriteLine("Ktora z ksiazek chcesz kupic?");
                                             Thread.Sleep(500);
-                                        }
                                         break;
                                     }
                                 case '2':
@@ -114,7 +154,6 @@ class Program
                             haslo = Console.ReadLine();
                         }
                         Console.WriteLine("Pomyslnie zalogowano jako pracownik");
-                        Thread.Sleep(1000);
                         Console.Clear();
                         DzialDruku DD = new DzialDruku();
                         DzialProgramowy DP = new DzialProgramowy();
@@ -135,7 +174,6 @@ class Program
                             Thread.Sleep(1000);
                             key = Console.ReadKey();
                             wybor_opcji = key.KeyChar;
-                            Thread.Sleep(1000);
                             Console.Clear();
                             switch (wybor_opcji)
                             {
@@ -157,59 +195,59 @@ class Program
                                     {
                                         ArrayList autorzy = new ArrayList();
                                         autorzy = DP.getAutor();
-                                        int i = 1;
-                                        if (autorzy.Count > 0)
+                                        int number = 1;
+                                        try { Autor(autorzy); }
+                                        catch (PustaListaException PL)
                                         {
-                                            foreach (Autor la in autorzy)
-                                            {
-                                                Console.WriteLine("[" + i + "] autor: " + la.Imie + " " + la.Nazwisko);
-                                                Thread.Sleep(1000);
-                                                i++;
-                                            }
-
+                                            Console.WriteLine(PL.Message);
+                                            Thread.Sleep(700);
+                                            Console.Clear();
+                                            break;
                                         }
-                                        else
+                                        foreach (Autor la in autorzy)
                                         {
-                                            Console.WriteLine("Obecnie nie ma zadnych autorow");
-                                            Thread.Sleep(1000);
+                                            Console.WriteLine("[" + number + "] autor: " + la.Imie + " " + la.Nazwisko);
+                                            number++;
                                         }
+                                        Thread.Sleep(1500);
                                         Console.Clear();
                                         break;
                                     }
                                 case '3':
                                     ArrayList autorzy1 = new ArrayList();
                                     autorzy1 = DP.getAutor();
-                                    int na=1;
-                                    int ku;
-                                    if (autorzy1.Count > 0)
+                                    int i=1;
+                                    int numer_autora;
+                                    try { Autor(autorzy1); }
+                                    catch (PustaListaException PL)
                                     {
-                                        foreach (Autor la in autorzy1)
-                                        {
-                                            Console.WriteLine("[" + na + "] autor: " + la.Imie + " " + la.Nazwisko);
-                                            na++;
-                                        }
-                                        Console.WriteLine("Ktorego autora chcesz usunac? (Podaj numer)");
-                                        ku=int.Parse(Console.ReadLine());
-                                        na = 1;
-                                        
-                                        while(ku>0 && ku<autorzy1.Count)
-                                        {
-                                            foreach(Autor la in autorzy1)
-                                            {
-                                                if(ku==na)
-                                                {
-                                                    DP.UsunAutora(la);
-                                                    ku = 0;
-                                                }
-                                                na++;
-                                            }
-                                        }
-
+                                        Console.WriteLine(PL.Message);
+                                        Thread.Sleep(700);
+                                        Console.Clear();
+                                        break;
                                     }
-                                    else
+                                    foreach (Autor la in autorzy1)
                                     {
-                                        Console.WriteLine("Obecnie nie ma zadnych autorow");
-                                        Thread.Sleep(1000);
+                                        Console.WriteLine("[" + i + "] autor: " + la.Imie + " " + la.Nazwisko);
+                                        i++;
+                                    }
+                                    Console.WriteLine("Ktorego autora chcesz usunac? (Podaj numer)");
+                                    //tu moze byc key zamist console readline
+                                    numer_autora=int.Parse(Console.ReadLine());
+                                    i = 0;
+                                    while (numer_autora >= 0 && numer_autora < autorzy1.Count)
+                                    {
+                                        //BLAD
+                                        foreach (Autor autor in autorzy1)
+                                        {
+                                            if (numer_autora-1 == i)
+                                            {
+                                                DP.UsunAutora(autor);
+                                                numer_autora = -1;
+                                                break;
+                                            }
+                                            i++;
+                                        }
                                     }
                                     Console.Clear();
                                     break;
@@ -217,8 +255,11 @@ class Program
                                     Console.WriteLine("Jaka umowe chcesz podpisac?");
                                     Console.WriteLine("[1] umowa o prace");
                                     Console.WriteLine("[2] umowa o dzielo");
-                                    ru = Int32.Parse(Console.ReadLine());
-                                    if (ru == 1)
+                                    key = Console.ReadKey();
+                                    wybor_umowy = key.KeyChar;
+                                    switch (wybor_umowy)
+                                    {
+                                        case '1':
                                     {
                                         Console.Clear();
                                         Console.WriteLine("Podaj imie autora");
@@ -228,13 +269,15 @@ class Program
                                         Console.WriteLine("Podaj adres email autora");
                                         mail = Console.ReadLine();
                                         Console.WriteLine("Podaj dlugosc umowy (w latach):");
-                                        du = double.Parse(Console.ReadLine());
+                                        dlugosc_umowy = double.Parse(Console.ReadLine());
                                         Autor autor1 = new Autor(imie, nazwisko, mail);
-                                        DP.UmowaOPrace(du, autor1);
-                                        Thread.Sleep(2000);
+                                        if(DP.UmowaOPrace(dlugosc_umowy, autor1))
+                                        Console.WriteLine("Umowa o prace zostala zawarta pomyslnie");
+                                        Thread.Sleep(1000);
                                         Console.Clear();
+                                        break;
                                     }
-                                    else if (ru == 2)
+                                        case'2':
                                     {
                                         Console.Clear();
                                         Console.WriteLine("Podaj imie autora");
@@ -243,83 +286,101 @@ class Program
                                         nazwisko = Console.ReadLine();
                                         Console.WriteLine("Podaj adres email autora");
                                         mail = Console.ReadLine();
-                                        Console.WriteLine("Jaki gatunek ksiazki:");
-                                        Console.WriteLine("[1] sensacyjne");
-                                        Console.WriteLine("[2] kryminalistyczne");
-                                        Console.WriteLine("[3] fantasy");
-                                        Console.WriteLine("[4] romasnse");
-                                        Console.WriteLine("[5] albumy");
-                                        Console.WriteLine("[6] inne");
-                                        rk = int.Parse(Console.ReadLine());
-                                        while (rk < 0 && rk > 6)
-                                        {
-                                            Console.WriteLine("Niepoprawny wybor. Sprobuj jeszcze raz");
-                                            rk = int.Parse(Console.ReadLine());
-                                            Console.Clear();
-                                        }
-                                        if (rk == 1)
-                                        {
-                                            Console.WriteLine("Podaj tytul ksiazki");
-                                            tytul = Console.ReadLine();
-                                            Autor autor2 = new Autor(imie, nazwisko, mail);
-                                            Sensacyjne publikacje = new Sensacyjne(autor2, tytul);
-                                            DP.UmowaODzielo(autor2, publikacje);
-                                        }
-                                        else if (rk == 2)
-                                        {
-                                            Console.WriteLine("Podaj tytul ksiazki");
-                                            tytul = Console.ReadLine();
-                                            Autor autor2 = new Autor(imie, nazwisko, mail);
-                                            Kryminalistyczne publikacje = new Kryminalistyczne(autor2, tytul);
-                                            DP.UmowaODzielo(autor2, publikacje);
-                                        }
-                                        else if (rk == 3)
-                                        {
-                                            Console.WriteLine("Podaj tytul ksiazki");
-                                            tytul = Console.ReadLine();
-                                            Autor autor2 = new Autor(imie, nazwisko, mail);
-                                            Fantasy publikacje = new Fantasy(autor2, tytul);
-                                            DP.UmowaODzielo(autor2, publikacje);
-                                        }
-                                        else if (rk == 4)
-                                        {
-                                            Console.WriteLine("Podaj tytul ksiazki");
-                                            tytul = Console.ReadLine();
-                                            Autor autor2 = new Autor(imie, nazwisko, mail);
-                                            Romanse publikacje = new Romanse(autor2, tytul);
-                                            DP.UmowaODzielo(autor2, publikacje);
-                                        }
-                                        else if (rk == 5)
-                                        {
-                                            Console.WriteLine("Podaj tytul ksiazki");
-                                            tytul = Console.ReadLine();
-                                            Autor autor2 = new Autor(imie, nazwisko, mail);
-                                            Albumy publikacje = new Albumy(autor2, tytul);
-                                            DP.UmowaODzielo(autor2, publikacje);
-                                        }
-                                        else if (rk == 6)
-                                        {
-                                            Console.WriteLine("Podaj tytul ksiazki");
-                                            tytul = Console.ReadLine();
-                                            Autor autor2 = new Autor(imie, nazwisko, mail);
-                                            Inne publikacje = new Inne(autor2, tytul);
-                                            DP.UmowaODzielo(autor2, publikacje);
+                                        Console.Clear();
+                                            Console.WriteLine("Jaki gatunek ksiazki:");
+                                            Console.WriteLine("[1] sensacyjne");
+                                            Console.WriteLine("[2] kryminalistyczne");
+                                            Console.WriteLine("[3] fantasy");
+                                            Console.WriteLine("[4] romasnse");
+                                            Console.WriteLine("[5] albumy");
+                                            Console.WriteLine("[6] inne");
+                                            wybor_ksiazki = int.Parse(Console.ReadLine());
+                                            while(wybor_ksiazki<1||wybor_ksiazki>6)
+                                                {
+                                                    Console.WriteLine("Niepoprawny wybor");
+                                                    Thread.Sleep(700);
+                                                }
+                                            switch (wybor_ksiazki)
+                                            {
+                                                case '1':
+                                                {
+                                                    Console.WriteLine("Podaj tytul ksiazki");
+                                                    tytul = Console.ReadLine();
+                                                    Autor autor2 = new Autor(imie, nazwisko, mail);
+                                                    Sensacyjne publikacje = new Sensacyjne(autor2, tytul);
+                                                    DP.UmowaODzielo(autor2, publikacje);
+                                                    break;
+                                                }
+                                                case '2':
+                                                {
+                                                    Console.WriteLine("Podaj tytul ksiazki");
+                                                    tytul = Console.ReadLine();
+                                                    Autor autor2 = new Autor(imie, nazwisko, mail);
+                                                    Kryminalistyczne publikacje = new Kryminalistyczne(autor2, tytul);
+                                                    DP.UmowaODzielo(autor2, publikacje);
+                                                    break;
+                                                }
+                                                case '3':
+                                                {
+                                                    Console.WriteLine("Podaj tytul ksiazki");
+                                                    tytul = Console.ReadLine();
+                                                    Autor autor2 = new Autor(imie, nazwisko, mail);
+                                                    Fantasy publikacje = new Fantasy(autor2, tytul);
+                                                    DP.UmowaODzielo(autor2, publikacje);
+                                                    break;
+                                                }
+                                                case '4':
+                                                {
+                                                    Console.WriteLine("Podaj tytul ksiazki");
+                                                    tytul = Console.ReadLine();
+                                                    Autor autor2 = new Autor(imie, nazwisko, mail);
+                                                    Romanse publikacje = new Romanse(autor2, tytul);
+                                                    DP.UmowaODzielo(autor2, publikacje);
+                                                    break;
+                                                }
+                                                case '5':
+                                                {
+                                                    Console.WriteLine("Podaj tytul ksiazki");
+                                                    tytul = Console.ReadLine();
+                                                    Autor autor2 = new Autor(imie, nazwisko, mail);
+                                                    Albumy publikacje = new Albumy(autor2, tytul);
+                                                    DP.UmowaODzielo(autor2, publikacje);
+                                                    break;
+                                                }
+                                                case '6':
+                                                {
+                                                    Console.WriteLine("Podaj tytul ksiazki");
+                                                    tytul = Console.ReadLine();
+                                                    Autor autor2 = new Autor(imie, nazwisko, mail);
+                                                    Inne publikacje = new Inne(autor2, tytul);
+                                                    DP.UmowaODzielo(autor2, publikacje);
+                                                    break;
+                                                }
+                                            }
                                         }
                                         Thread.Sleep(2000);
                                         Console.Clear();
+                                        break;
+                                            //poprawic
+                                        /*default:
+                                            {
+                                                Console.WriteLine("Niepoprawny wybor. Sprobuj jeszcze raz");
+                                                key = Console.ReadKey();
+                                                wybor_ = key.KeyChar;
+                                                Console.Clear();
+                                                break;
+                                            }*/
                                     }
                                     break;
                                 case '5':
-                                    int zk;
-                                    String wk;
+                                    int zk,wk;
+                                    //String wk;
                                     int ia = 1, wa; 
-                                    ArrayList zdk = new ArrayList();
-                                    zdk = DP.getUmowy();
                                     Console.WriteLine("Co chcesz wydrukowac");
                                     Console.WriteLine("[1] ksiazke");
                                     Console.WriteLine("[2] czasopismo");
                                     zk = int.Parse(Console.ReadLine());
-                                    while (zk < 0 && zk > 2)
+                                    while (zk < 0 || zk > 2)
                                     {
                                         Console.WriteLine("Niepoprawnie wybrana opcja. Sprobuj jeszcze raz");
                                         zk = int.Parse(Console.ReadLine());
@@ -334,30 +395,29 @@ class Program
                                         Console.WriteLine("[4] romasnse");
                                         Console.WriteLine("[5] albumy");
                                         Console.WriteLine("[6] inne");
-                                        wk = Console.ReadLine();
+                                        wk = int.Parse(Console.ReadLine());
+                                        while (wk < 1 || wk > 6)
+                                        {
+                                            Console.WriteLine("Niepoprawny wybor");
+                                            Thread.Sleep(700);
+                                        }
+                                      //  wk = Console.ReadLine();
                                         switch (wk)
                                         {
-                                            case "1":
-                                                
-                                                Console.WriteLine("Wybierz autora:");
-                                                foreach (Umowy uop in zdk)
+                                            case '1':
+
+                                                try { wa = WyborAutora(); }
+                                                catch(PustaListaException PL)
                                                 {
-                                                    if (uop is UmowyOPrace)
-                                                    {
-                                                        Console.WriteLine("["+ia+"]"+uop.getAutor);
-                                                        ia++;
-                                                    }
-                                                }
-                                                wa = int.Parse(Console.ReadLine());
-                                                while(wa < 0 && wa > ia)
-                                                {
-                                                    Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
-                                                    wa = int.Parse(Console.ReadLine());
+                                                    Console.WriteLine(PL.Message);
+                                                    Thread.Sleep(700);
+                                                    Console.Clear();
+                                                    break;
                                                 }
                                                 Console.WriteLine("Podaj tytul:");
                                                 tytul=Console.ReadLine();
                                                 ia = 1;
-                                                foreach (Umowy uop in zdk)
+                                                foreach (Umowy uop in DP.getUmowy())
                                                 {
                                                     if (uop is UmowyOPrace)
                                                     {
@@ -371,27 +431,19 @@ class Program
                                                 }
 
                                                 break;
-                                            case "2":
-                                                
-                                                Console.WriteLine("Wybierz autora:");
-                                                foreach (Umowy uop in zdk)
+                                            case '2':
+                                                try { wa = WyborAutora(); }
+                                                catch (PustaListaException PL)
                                                 {
-                                                    if (uop is UmowyOPrace)
-                                                    {
-                                                        Console.WriteLine("[" + ia + "]" + uop.getAutor);
-                                                        ia++;
-                                                    }
-                                                }
-                                                wa = int.Parse(Console.ReadLine());
-                                                while (wa < 0 && wa > ia)
-                                                {
-                                                    Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
-                                                    wa = int.Parse(Console.ReadLine());
+                                                    Console.WriteLine(PL.Message);
+                                                    Thread.Sleep(700);
+                                                    Console.Clear();
+                                                    break;
                                                 }
                                                 Console.WriteLine("Podaj tytul:");
                                                 tytul = Console.ReadLine();
                                                 ia = 1;
-                                                foreach (Umowy uop in zdk)
+                                                foreach (Umowy uop in DP.getUmowy())
                                                 {
                                                     if (uop is UmowyOPrace)
                                                     {
@@ -405,27 +457,19 @@ class Program
                                                 }
 
                                                 break;
-                                            case "3":
-                                                
-                                                Console.WriteLine("Wybierz autora:");
-                                                foreach (Umowy uop in zdk)
+                                            case '3':
+                                                try { wa = WyborAutora(); }
+                                                catch (PustaListaException PL)
                                                 {
-                                                    if (uop is UmowyOPrace)
-                                                    {
-                                                        Console.WriteLine("[" + ia + "]" + uop.getAutor);
-                                                        ia++;
-                                                    }
-                                                }
-                                                wa = int.Parse(Console.ReadLine());
-                                                while (wa < 0 && wa > ia)
-                                                {
-                                                    Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
-                                                    wa = int.Parse(Console.ReadLine());
+                                                    Console.WriteLine(PL.Message);
+                                                    Thread.Sleep(700);
+                                                    Console.Clear();
+                                                    break;
                                                 }
                                                 Console.WriteLine("Podaj tytul:");
                                                 tytul = Console.ReadLine();
                                                 ia = 1;
-                                                foreach (Umowy uop in zdk)
+                                                foreach (Umowy uop in DP.getUmowy())
                                                 {
                                                     if (uop is UmowyOPrace)
                                                     {
@@ -439,27 +483,19 @@ class Program
                                                 }
 
                                                 break;
-                                            case "4":
-                                               
-                                                Console.WriteLine("Wybierz autora:");
-                                                foreach (Umowy uop in zdk)
+                                            case '4':
+                                                try { wa = WyborAutora(); }
+                                                catch (PustaListaException PL)
                                                 {
-                                                    if (uop is UmowyOPrace)
-                                                    {
-                                                        Console.WriteLine("[" + ia + "]" + uop.getAutor);
-                                                        ia++;
-                                                    }
-                                                }
-                                                wa = int.Parse(Console.ReadLine());
-                                                while (wa < 0 && wa > ia)
-                                                {
-                                                    Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
-                                                    wa = int.Parse(Console.ReadLine());
+                                                    Console.WriteLine(PL.Message);
+                                                    Thread.Sleep(700);
+                                                    Console.Clear();
+                                                    break;
                                                 }
                                                 Console.WriteLine("Podaj tytul:");
                                                 tytul = Console.ReadLine();
                                                 ia = 1;
-                                                foreach (Umowy uop in zdk)
+                                                foreach (Umowy uop in DP.getUmowy())
                                                 {
                                                     if (uop is UmowyOPrace)
                                                     {
@@ -473,27 +509,18 @@ class Program
                                                 }
 
                                                 break;
-                                            case "5":
-                                                
-                                                Console.WriteLine("Wybierz autora:");
-                                                foreach (Umowy uop in zdk)
+                                            case '5':
+                                                try { wa = WyborAutora(); }
+                                                catch (PustaListaException PL)
                                                 {
-                                                    if (uop is UmowyOPrace)
-                                                    {
-                                                        Console.WriteLine("[" + ia + "]" + uop.getAutor);
-                                                        ia++;
-                                                    }
+                                                    Console.WriteLine(PL.Message);
+                                                    Thread.Sleep(700);
+                                                    Console.Clear();
+                                                    break;
                                                 }
-                                                wa = int.Parse(Console.ReadLine());
-                                                while (wa < 0 && wa > ia)
-                                                {
-                                                    Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
-                                                    wa = int.Parse(Console.ReadLine());
-                                                }
-                                                Console.WriteLine("Podaj tytul:");
                                                 tytul = Console.ReadLine();
                                                 ia = 1;
-                                                foreach (Umowy uop in zdk)
+                                                foreach (Umowy uop in DP.getUmowy())
                                                 {
                                                     if (uop is UmowyOPrace)
                                                     {
@@ -507,27 +534,19 @@ class Program
                                                 }
 
                                                 break;
-                                            case "6":
-                                                
-                                                Console.WriteLine("Wybierz autora:");
-                                                foreach (Umowy uop in zdk)
+                                            case '6':
+                                                try { wa = WyborAutora(); }
+                                                catch (PustaListaException PL)
                                                 {
-                                                    if (uop is UmowyOPrace)
-                                                    {
-                                                        Console.WriteLine("[" + ia + "]" + uop.getAutor);
-                                                        ia++;
-                                                    }
-                                                }
-                                                wa = int.Parse(Console.ReadLine());
-                                                while (wa < 0 && wa > ia)
-                                                {
-                                                    Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
-                                                    wa = int.Parse(Console.ReadLine());
+                                                    Console.WriteLine(PL.Message);
+                                                    Thread.Sleep(700);
+                                                    Console.Clear();
+                                                    break;
                                                 }
                                                 Console.WriteLine("Podaj tytul:");
                                                 tytul = Console.ReadLine();
                                                 ia = 1;
-                                                foreach (Umowy uop in zdk)
+                                                foreach (Umowy uop in DP.getUmowy())
                                                 {
                                                     if (uop is UmowyOPrace)
                                                     {
@@ -539,25 +558,25 @@ class Program
                                                         ia++;
                                                     }
                                                 }
-
                                                 break;
                                             default:
                                                 {
                                                     Console.WriteLine("Wybierz jedna z podanych opcji");
                                                     Thread.Sleep(800);
-
                                                     break;
                                                 }
 
 
                                         }
 
-                                    }else if(zk==2)
+                                    }
+                                    else if(zk==2)
                                     {
                                         Console.WriteLine("Jaki magazyn chcesz wydrukowac: ");
                                         Console.WriteLine("[1] miesiecznik");
                                         Console.WriteLine("[2] tygodnik");
                                         wa=int.Parse(Console.ReadLine());
+                                        int ilosc;
                                         while(wa < 0 && wa > 2)
                                         {
                                             Console.WriteLine("Niepoprawny wybor sprobuj jeszcze raz");
@@ -569,7 +588,11 @@ class Program
                                             Console.WriteLine("Podaj tytul magazynu: ");
                                             tytul = Console.ReadLine();
                                             Publikacje czasopismo = new Miesiecznik(redakcja, tytul);
-                                            DH.ZlecenieDruku(200, czasopismo);
+                                            Console.WriteLine("Podaj ilosc:");
+                                            ilosc= int.Parse(Console.ReadLine());
+                                            DH.ZlecenieDruku(ilosc, czasopismo);
+                                            Thread.Sleep(800);
+                                            Console.Clear();
                                         }
                                         else if (wa == 2)
                                         {
@@ -577,14 +600,24 @@ class Program
                                             Console.WriteLine("Podaj tytul magazynu: ");
                                             tytul = Console.ReadLine();
                                             Publikacje czasopismo = new Miesiecznik(redakcja, tytul);
-                                            DH.ZlecenieDruku(200, czasopismo);
+                                            Console.WriteLine("Podaj ilosc:");
+                                            ilosc = int.Parse(Console.ReadLine());
+                                            DH.ZlecenieDruku(ilosc, czasopismo);
+                                            Thread.Sleep(800);
+                                            Console.Clear();
                                         }
                                     }
-
                                     break;
                                 case '6':
                                     ArrayList umowy = new ArrayList();
-                                    umowy = DP.getUmowy();
+                                    try { umowy = DP.getUmowy(); }
+                                    catch (PustaListaException PL)
+                                    {
+                                        Console.WriteLine(PL.Message);
+                                        Thread.Sleep(700);
+                                        Console.Clear();
+                                        break;
+                                    }
                                     Console.WriteLine("Autorzy na umowie o prace:");
                                     foreach (Umowy uop in umowy)
                                     {
@@ -603,11 +636,20 @@ class Program
                                         }
 
                                     }
+                                    Thread.Sleep(1500);
+                                    Console.Clear();
                                     break;
 
                                 case '7':
                                     ArrayList rozwiazanie = new ArrayList();
-                                    rozwiazanie = DP.getUmowy();
+                                    try { rozwiazanie = DP.getUmowy(); }
+                                    catch (PustaListaException PL)
+                                    {
+                                        Console.WriteLine(PL.Message);
+                                        Thread.Sleep(700);
+                                        Console.Clear();
+                                        break;
+                                    }
                                     x = 1;
                                     foreach (Umowy uop in rozwiazanie)
                                     {
@@ -635,10 +677,8 @@ class Program
                                         {
                                             DP.RozwiazanieUmowy(uop.Autor);
                                         }
-                                        
+                                        x++;
                                     }
-
-
                                         break;
                                 case '8':
                                     wybor_logowania = '1';
@@ -653,15 +693,12 @@ class Program
                                         Console.Clear();
                                         break;
                                     }
-
-
                             }
 
                         }
 
                     }
                     break;
-
                 default:
                     {
                         Console.WriteLine("Wybierz jedna z podanych opcji");
