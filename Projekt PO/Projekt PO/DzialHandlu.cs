@@ -35,7 +35,7 @@ namespace Wydawnictwo
             else
                 Console.WriteLine("Nie ma wystarczającej ilości podanej publikacji, dostępna ilość to: " + publikacje.Ilosc);
         }
-        
+        //WYJATEK
         public ArrayList  Katalog
         {
            get { return ListaPublikacji; }

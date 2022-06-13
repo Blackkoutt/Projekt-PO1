@@ -113,15 +113,14 @@ namespace Wydawnictwo
             while ((line = sr.ReadLine()) != null)
             {
                 string[] s = line.Split(",");
-                Autor autor = new Autor();
                 if (s[0] =="tygodnik")
                 {
-                    Czasopismo publikacje= new Tygodnik(autor, s[1]);
+                    Czasopismo publikacje= new Tygodnik(s[1]);
 
                 }
                 if (s[0] =="miesiecznik")
                 {
-                    Czasopismo publikacje = new Tygodnik(autor, s[1]);
+                    Czasopismo publikacje = new Tygodnik(s[1]);
                 }
         
             }
@@ -131,7 +130,8 @@ namespace Wydawnictwo
 
         public  ArrayList getlista()
         {
-            return inwentarz;
+            if(inwentarz.Count!=0) return inwentarz;
+            throw new PustaListaException("Brak dostepnych pozycji w katalogu");
         }
 
         public string DoWielkiej(string nazwa)

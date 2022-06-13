@@ -8,17 +8,16 @@ namespace Wydawnictwo
 {
     abstract class Czasopismo : Publikacje
     {
-        public Czasopismo(Autor autor, String tytul) : base(autor, tytul)
-        { }
+        public Czasopismo(String tytul) : base(tytul) { }
     }
     class Miesiecznik : Czasopismo
     {
-        public Miesiecznik(Autor autor, String tytul) : base(autor, tytul)
+        public Miesiecznik(String tytul) : base(tytul)
         { }
     }
     class Tygodnik : Czasopismo
     {
-        public Tygodnik(Autor autor, String tytul) : base(autor, tytul)
+        public Tygodnik(String tytul) : base(tytul)
         { }
     }
 }

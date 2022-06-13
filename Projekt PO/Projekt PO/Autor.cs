@@ -32,7 +32,7 @@ namespace Wydawnictwo
         }
         public bool Equals(Autor autor)
         {
-            if (autor != null && this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko && this.Email == autor.Email)
+            if (autor != null && this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko)
             { return true; }
             return false;
         }

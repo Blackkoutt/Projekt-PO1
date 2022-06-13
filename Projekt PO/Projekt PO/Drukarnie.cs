@@ -11,6 +11,7 @@ namespace Wydawnictwo
         //pisanie do pliku
         //jesli publikacja jest juz na liscie to zwiekszenie jej ilosci 
         //jesli publikacja nie jest na liscie to zapisanie do pliku i 
+        //MOZE WYRZUCIC WYJATEK JESLI NIE BEDZIE PLIKU
         public static /*-async*/ void AktualizacjaPublikacji(Publikacje publikacja, int ilosc)
         {
             DzialHandlu DH=new DzialHandlu();
@@ -22,9 +23,8 @@ namespace Wydawnictwo
                 //albo wszystko do jednego dużego pliku
                 StreamWriter sw = new StreamWriter("Publikacje.txt");
                 sw.WriteLine(publikacja.Tytul);
-                sw.WriteLine("Ilosc w magazynie: " + publikacja.Ilosc);
+                sw.Write("Ilosc w magazynie: " + publikacja.Ilosc);
                 sw.Close();
-
             }
             publikacja.setilosc(publikacja.Ilosc + ilosc);
         }
