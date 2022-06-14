@@ -535,16 +535,15 @@ class Program
                                     }
 
                                     Console.Clear();
-                                    Console.WriteLine("Podaj imie autora");
-                                    imie = Console.ReadLine();
-                                    Console.WriteLine("Podaj nazwisko autora");
-                                    nazwisko = Console.ReadLine();
-                                    Console.WriteLine("Podaj adres email autora");
-                                    mail = Console.ReadLine();
-
-
+                                    
                                     if (wybor_umowy == '1')
-                                    { 
+                                    {
+                                        Console.WriteLine("Podaj imie autora");
+                                        imie = Console.ReadLine();
+                                        Console.WriteLine("Podaj nazwisko autora");
+                                        nazwisko = Console.ReadLine();
+                                        Console.WriteLine("Podaj adres email autora");
+                                        mail = Console.ReadLine();
                                         Console.WriteLine("Podaj dlugosc umowy (w latach)");
                                         dlugosc_umowy = double.Parse(Console.ReadLine());
 
@@ -558,7 +557,13 @@ class Program
                                         }
                                     }
                                     else if (wybor_umowy == '2')
-                                    { 
+                                    {
+                                        Console.WriteLine("Podaj imie autora");
+                                        imie = Console.ReadLine();
+                                        Console.WriteLine("Podaj nazwisko autora");
+                                        nazwisko = Console.ReadLine();
+                                        Console.WriteLine("Podaj adres email autora");
+                                        mail = Console.ReadLine();
                                         Console.WriteLine("Podaj rodzaj publikacji");
                                         string nazwa_rodzaju = Console.ReadLine();
 
@@ -695,7 +700,8 @@ class Program
                                     Console.WriteLine("Co chcesz zlecic (podaj rodzaj lub wpisz \"x\" by wrocic):");
                                     string rodzaj_zlecenia = Console.ReadLine();
                                     rodzaj_zlecenia = DoWielkiej(rodzaj_zlecenia);
-                                    if (rodzaj_zlecenia == "X") break;
+                                    if (rodzaj_zlecenia == "X") 
+                                        break;
 
                                     if (rodzaj_zlecenia == "Tygodnik" || rodzaj_zlecenia == "Miesiecznik")
                                     { autor_zlecenia = null; }
