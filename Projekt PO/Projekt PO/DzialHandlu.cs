@@ -18,17 +18,25 @@ namespace Wydawnictwo
                 Console.WriteLine("Pomyslnie wydrukowano " + publikacje.Tytul + " w nastepujacej liczbie egzemplarzy: " + ilosc);
             }
         }
-
-        public void ZlecenieKupna(int ilosc, Publikacje publikacje)
+        public void Zamowienie(int ilosc, Publikacje publikacje, DzialProgramowy DP)
         {
+            if (DP.WyborDrukarni(ilosc, publikacje, this))
+                ;
+        }
+
+        public void ZlecenieKupna(int ilosc, Publikacje publikacje, DzialProgramowy DP)
+        {
+           
             while (publikacje.Ilosc - ilosc <= 0)
             {
                 Console.WriteLine("Nie ma wystarczającej ilości podanej publikacji, dostępna ilość to: " + publikacje.Ilosc);
                 ilosc = int.Parse(Console.ReadLine());
             }
                 publikacje.setilosc(publikacje.Ilosc - ilosc);
-            
-                
+            if (publikacje.Ilosc < 10)
+                this.Zamowienie(50, publikacje, DP);
+
+
         }
         //WYJATEK
 

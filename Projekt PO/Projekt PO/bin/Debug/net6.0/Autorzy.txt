@@ -1,3 +1,6 @@
 Kolacja,Lubi,LubiKolacje
 Jan,Kowalski,Jan lubi pomagac
 Wydawnictwo,ePress,ePress@gmail.com
+ASD,ADS,ASD
+ads,das,das
+Jak,Lubi,Grac

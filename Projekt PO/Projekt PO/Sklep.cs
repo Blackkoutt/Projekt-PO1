@@ -106,7 +106,7 @@ namespace Wydawnictwo
          }*/
         public void ZlecenieKupna(int ilosc, Publikacje publikacje, DzialHandlu DH)
         {
-            DH.ZlecenieKupna(ilosc, publikacje);
+           // DH.ZlecenieKupna(ilosc, publikacje, DP);
             /*if (publikacje.Ilosc - ilosc >= 0)
                 publikacje.setilosc(publikacje.Ilosc - ilosc);
             else

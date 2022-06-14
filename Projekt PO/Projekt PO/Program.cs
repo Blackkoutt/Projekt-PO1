@@ -374,7 +374,7 @@ class Program
                                                         success = int.TryParse(kk, out KK);
                                                     }
                                                 }
-                                                DH.ZlecenieKupna(IK, p);
+                                                DH.ZlecenieKupna(IK, p, DP);
                                                 Console.WriteLine("Pomyślnie zakupiono ksiazke");
                                                 Thread.Sleep(700);
                                                 Console.Clear();
