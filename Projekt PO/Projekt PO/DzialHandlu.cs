@@ -11,21 +11,19 @@ namespace Wydawnictwo
     {
         private ArrayList ListaPublikacji = new ArrayList();
         
-        public void ZlecenieDruku(int ilosc, Publikacje publikacje)
+        public void ZlecenieDruku(int ilosc, Publikacje publikacje, DzialProgramowy DP)
         {
-            if (DzialProgramowy.WyborDrukarni(ilosc, publikacje, this))
+            if (DP.WyborDrukarni(ilosc, publikacje, this))
             {
                 Console.WriteLine("Pomyslnie wydrukowano " + publikacje.Tytul + " w nastepujacej liczbie egzemplarzy: " + ilosc);
-                if (!PublikacjaNaLiscie(publikacje))
-                { DodajDoListy(publikacje); }
             }
         }
-        //dodaj do listy publikacji jesli drukarnia zwrocila true po wydrukowaniu
+
         public void DodajDoListy(Publikacje publikacje)
         {
             ListaPublikacji.Add(publikacje);
         }
-        //ew oddzielna klasa sklep
+        
         public void ZlecenieKupna(int ilosc, Publikacje publikacje)
         {
             if (publikacje.Ilosc - ilosc >= 0)
@@ -52,6 +50,16 @@ namespace Wydawnictwo
         public void UsunPublikacje(Publikacje publikacja)
         {
             ListaPublikacji.Remove(publikacja);
+        }
+
+        public Publikacje? SzukajPublikacji(Autor autor, string tytul)
+        {
+            foreach(Publikacje publikacje in ListaPublikacji)
+            {
+                if(autor.Equals(publikacje.Autor) && tytul == publikacje.Tytul)
+                    return publikacje;
+            }
+            return null;
         }
 
     }
