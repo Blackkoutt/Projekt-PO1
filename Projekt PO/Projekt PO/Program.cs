@@ -201,8 +201,6 @@ class Program
 
         while ((line = odczytUmowy.ReadLine()) != null)
         {
-            List<String> zakazaneNazwy = new List<String>() { "Autor", "Umowy", "UmowyODzielo", "UmowyOPrace", "DzialHandlu", "Drukarnie", "DzialDruku", "Ksiazka", "Czasopismo", "Publikacje", "Sklep" };
-
             string[] s = line.Split(",");
             string imie = s[0];
             string nazwisko = s[1];
@@ -211,18 +209,9 @@ class Program
             string typStr = s[3];
             Autor autor = new Autor(imie, nazwisko);
 
-
             typStr = DoWielkiej(typStr);
-            if (zakazaneNazwy.Contains(typStr))
-            { typStr = "[BezNazwy]"; }
-
-            String nazwaTypu = "Wydawnictwo." + typStr;
-            Type? typ = Type.GetType(nazwaTypu);
-            if (typ == null)
-                typ = Type.GetType("Wydawnictwo.Inne");
-
             
-            if(typ is UmowyODzielo)
+            if(typStr == "UmowaODzielo")
             {
                 Publikacje? publikacja = DH.SzukajPublikacji(autor, tytul);
                 if (publikacja == null)
@@ -230,7 +219,7 @@ class Program
 
                 DP.UmowaODzielo(autor, publikacja, DH);
             }
-            else
+            else if(typStr == "UmowaOPrace")
             {
                 DP.UmowaOPrace(dlugosc, autor, DH);
             }
