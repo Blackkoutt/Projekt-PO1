@@ -21,10 +21,14 @@ namespace Wydawnictwo
 
         public void ZlecenieKupna(int ilosc, Publikacje publikacje)
         {
-            if (publikacje.Ilosc - ilosc >= 0)
-                publikacje.setilosc(publikacje.Ilosc - ilosc);
-            else
+            while (publikacje.Ilosc - ilosc <= 0)
+            {
                 Console.WriteLine("Nie ma wystarczającej ilości podanej publikacji, dostępna ilość to: " + publikacje.Ilosc);
+                ilosc = int.Parse(Console.ReadLine());
+            }
+                publikacje.setilosc(publikacje.Ilosc - ilosc);
+            
+                
         }
         //WYJATEK
 

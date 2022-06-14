@@ -301,7 +301,8 @@ class Program
                             key = Console.ReadKey();
                             wybor_opcji = key.KeyChar;
                             Console.Clear();
-                            int np = 1;
+                            int np = 1, IK, KK;
+                            string kk;
                             switch (wybor_opcji)
                             {
                                 case '1':
@@ -320,10 +321,66 @@ class Program
                                             //nie wypisuje konkretnych pozycji
                                             Console.WriteLine("[" + np++ + "]" + p.getAutor + " - " + p.GetType().Name);
                                         }
-                                        Console.WriteLine("Ktora z ksiazek chcesz kupic?");//SKLEP ZLECENIE!!!!!!!!!
-                                        Thread.Sleep(500);
+                                        Console.WriteLine("");
+                                        Console.WriteLine("Ktora z ksiazek chcesz kupic?");//SKLEP ZLECENIE!!!!!!!!!                                      
+                                        kk = Console.ReadLine();
+                                        bool success = int.TryParse(kk, out KK);
+                                        while (success==false)
+                                        {
+                                            Console.WriteLine("Podano nieprawidlowa wartosc");
+                                            kk = Console.ReadLine();
+                                            success = int.TryParse(kk, out KK);
+                                        }
+    
+                                        while (KK < 0 || KK > np)
+                                        {
+                                            Console.WriteLine("Nie ma takiej ksiazki na liscie. Sprobuj jeszcze raz");
+                                            kk = Console.ReadLine();
+                                            success = int.TryParse(kk, out KK);
+                                            while (success == false)
+                                            {
+                                                Console.WriteLine("Podano nieprawidlowa wartosc");
+                                                kk = Console.ReadLine();
+                                                success = int.TryParse(kk, out KK);
+                                            }
+                                        }
+                                        np = 1;
+                                        foreach (Publikacje p in inwentarz)
+                                        {
+                                            if (KK == np)
+                                            {
+                                                Console.WriteLine(p.getAutor);
+                                                Console.WriteLine("Ile ksiazek chcesz kupic?");
+                                                kk = Console.ReadLine();
+                                                success = int.TryParse(kk, out IK);
+                                                while (success == false)
+                                                {
+                                                    Console.WriteLine("Podano nieprawidlowa wartosc");
+                                                    kk = Console.ReadLine();
+                                                    success = int.TryParse(kk, out IK);
+                                                }
+                                                while (IK < 0)
+                                                {
+                                                    kk = Console.ReadLine();
+                                                    success = int.TryParse(kk, out IK);
+                                                    while (success == false)
+                                                    {
+                                                        Console.WriteLine("Podano nieprawidlowa wartosc");
+                                                        kk = Console.ReadLine();
+                                                        success = int.TryParse(kk, out KK);
+                                                    }
+                                                }
+                                                DH.ZlecenieKupna(IK, p);
+                                                Console.WriteLine("Pomyślnie zakupiono ksiazke");
+                                                Thread.Sleep(700);
+                                                Console.Clear();
+                                            }
+                                            np++;
+                                        }
+                                        
                                         break;
                                     }
+
                                 case '2':
                                     wybor_logowania = '2';
                                     break;
@@ -354,9 +411,12 @@ class Program
                             haslo = Console.ReadLine();
                         }*/
                         Console.WriteLine("Pomyslnie zalogowano jako pracownik");
+                        Thread.Sleep(1+500);
                         Console.Clear();
                         while (wybor_logowania == '2')
                         {
+                            Thread.Sleep(500);
+                            Console.Clear();
                             Console.WriteLine("Wybierz: ");
                             Console.WriteLine("[1] dodaj autora");
                             Console.WriteLine("[2] przegladaj dostepnych autorow");

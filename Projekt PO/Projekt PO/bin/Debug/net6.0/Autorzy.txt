@@ -1,0 +1,3 @@
+Kolacja,Lubi,LubiKolacje
+Jan,Kowalski,Jan lubi pomagac
+Wydawnictwo,ePress,ePress@gmail.com
