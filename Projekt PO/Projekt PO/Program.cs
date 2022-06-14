@@ -495,22 +495,17 @@ class Program
                                         i++;
                                     }
                                     Console.WriteLine("Ktorego autora chcesz usunac? (Podaj numer)");
-                                    numer_autora = int.Parse(Console.ReadLine());
-                                    i = 0;
-                                    while (numer_autora >= 0 && numer_autora < autorzy1.Count)
+                                    int KK;
+                                    string numer;
+                                    numer = Console.ReadLine();
+                                    bool success = int.TryParse(numer, out KK);
+                                    while (success == false || KK < 0 || KK > i)
                                     {
-                                        //BLAD
-                                        foreach (Autor autor in autorzy1)
-                                        {
-                                            if (numer_autora - 1 == i)
-                                            {
-                                                DP.UsunAutora(autor, DH);
-                                                numer_autora = -1;
-                                                break;
-                                            }
-                                            i++;
-                                        }
+                                        Console.WriteLine("Podano nieprawidlowa wartosc");
+                                        numer = Console.ReadLine();
+                                        success = int.TryParse(numer, out KK);
                                     }
+                                    DP.UsunAutora(KK, DH);
                                     Console.Clear();
                                     break;
                                 case '4':

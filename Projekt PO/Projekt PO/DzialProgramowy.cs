@@ -118,11 +118,18 @@ namespace Wydawnictwo
             if (!AutorNaLiscie(autor)) { ListaAutorow.Add(autor); }
             else throw new AutorJestNaLiscie("Dany autor jest juz na liscie autorow");
         }
-        
-        public void UsunAutora(Autor autor, DzialHandlu DH)
+
+        public void UsunAutora(int numer_autora, DzialHandlu DH)
         {
-            ListaAutorow.Remove(autor);            
-            Program.Update(DH, this);
+            for (int i = 0; i < ListaAutorow.Count; i++)
+            {
+                if (i + 1 == numer_autora)
+                {
+                    ListaAutorow.Remove(ListaAutorow[i]);
+                    Program.Update(DH, this);
+                    break;
+                }
+            }
         }
 
         public bool AutorNaLiscie(Autor autor)
