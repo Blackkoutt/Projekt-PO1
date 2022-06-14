@@ -22,8 +22,7 @@ namespace Wydawnictwo
             email = "brak maila";
         }
 
-        //konstruktor do czasopism żeby miały tego samego "autora" czyli wydawnictwo
-        //w publikacjach nie będzie potrzebny drugi konstruktor
+        
         public Autor()
         {
             this.imie = "Wydawnictwo";
@@ -34,7 +33,7 @@ namespace Wydawnictwo
         {
             if (autor != null && this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko)
             { 
-                if(email != autor.Email) { email = autor.Email; }//Do nadpisywania maila w przypadku tej samej osoby
+                if(email != autor.Email) { email = autor.Email; }
                 return true; 
             }
             return false;

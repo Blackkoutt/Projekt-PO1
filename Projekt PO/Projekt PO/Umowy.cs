@@ -8,19 +8,8 @@ namespace Wydawnictwo
 {
     abstract class Umowy
     {
-        //dodac cos do konstruktorow
+        
         protected Autor autor;
-
-
-        /*public Umowy(double dlugosc, Autor autor)
-        {
-            this.autor = autor; this.dlugosc = dlugosc;
-            //base
-        }
-        public Umowy(Autor autor, Publikacje publikacja)
-        {
-            this.autor = autor; this.publikacja = publikacja;
-        }*/
 
         public Umowy(Autor autor)
         {
@@ -45,7 +34,7 @@ namespace Wydawnictwo
             this.dlugosc = dlugosc;
         }
 
-        //na zapas, jeśli nie będzie potrzebna usunąć
+        
         public double Dlugosc
         {
             get { return dlugosc; }
@@ -60,7 +49,7 @@ namespace Wydawnictwo
             this.publikacja = publikacja;
         }
 
-        //na zapas, jeśli nie będzie potrzebna usunąć
+       
         public Publikacje Publikacja
         {
             get { return publikacja; }

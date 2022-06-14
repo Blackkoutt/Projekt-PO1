@@ -26,11 +26,21 @@ namespace Wydawnictwo
 
         public void ZlecenieKupna(int ilosc, Publikacje publikacje, DzialProgramowy DP)
         {
-           
+            
+            if (publikacje.Ilosc < 10)
+                this.Zamowienie(50, publikacje, DP);
             while (publikacje.Ilosc - ilosc <= 0)
             {
+                string kk;
                 Console.WriteLine("Nie ma wystarczającej ilości podanej publikacji, dostępna ilość to: " + publikacje.Ilosc);
-                ilosc = int.Parse(Console.ReadLine());
+                kk = Console.ReadLine();
+                bool success = int.TryParse(kk, out ilosc);
+                while (success == false)
+                {                   
+                    Console.WriteLine("Podano nieprawidlowa wartosc");
+                    kk = Console.ReadLine();
+                    success = int.TryParse(kk, out ilosc);
+                }
             }
                 publikacje.setilosc(publikacje.Ilosc - ilosc);
             if (publikacje.Ilosc < 10)
@@ -38,7 +48,7 @@ namespace Wydawnictwo
 
 
         }
-        //WYJATEK
+        
 
         public ArrayList  Katalog
         {

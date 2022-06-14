@@ -1,6 +1,8 @@
 JaN, Kowalski, Biegac w deszczu,200,Inne
 JaN, Kowalski, Biegac w deszczu,200,Inne
-JaN, Kowalski, Biegac w deszczu,165,Inne
+JaN, Kowalski, Biegac w deszczu,45,Inne
 JaN, Kowalski, Biegac w deszczu,200,Inne
 Kolacja,Lubi,Lubi Jesc Kolacje,0,Sensacyjne
 Jak,Lubi,Ltac,0,Sensacyjne
+Wydawnictwo,ePress,Tak,0,Inne
+Wydawnictwo,ePress,Nie,200,Inne

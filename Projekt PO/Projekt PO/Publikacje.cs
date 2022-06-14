@@ -21,12 +21,8 @@ namespace Wydawnictwo
             this.tytul = tytul;
             autor=new Autor();
         }
-        //zamiast rozróżniać czy jest z autorem czy bez można podpiąć czasopisma pod autorstwo wydawnictwa
-        //dodałem konstruktor w autorze który zamiast nazwiska i imienia daje nazwe wydawnictwa i email
-        /*public Publikacje(String tytul)
-        {
-            this.tytul = tytul;
-        }*/
+        
+        
 
         public bool Equals(Publikacje pub)
         {

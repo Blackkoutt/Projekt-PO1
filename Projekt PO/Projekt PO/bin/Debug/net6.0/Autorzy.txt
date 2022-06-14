@@ -3,4 +3,7 @@ Jan,Kowalski,Jan lubi pomagac
 Wydawnictwo,ePress,ePress@gmail.com
 ASD,ADS,ASD
 ads,das,das
-Jak,Lubi,Grac
+DAS,DSA,Ko
+Kamil,Sak,Lubi
+df,ghf,dfg
+Kop,daleko,pilke

@@ -11,10 +11,7 @@ namespace Wydawnictwo
     {
         private ArrayList ListaAutorow = new ArrayList();
         private ArrayList ListaUmow = new ArrayList();
-        // private DzialHandlu DH;
-        //private Drukarnie DR; //= new Drukarnie();
-      // public DzialProgramowy() { DH = new DzialHandlu(); DR = new Drukarnie(); }
-        //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
+    
 
         public void UmowaOPrace(double dlugosc, Autor autor, DzialHandlu DH)
         {
@@ -27,12 +24,7 @@ namespace Wydawnictwo
             Program.Update(DH, this);
         }
 
-        //jesli autor ma juz umowe to nie dodajemy go do listy autorow i do listy umow
-        //tak samo wyzej 
-
-        //po wykonaniu zlecenia umowa powinna zostać rozwiązana czyli teoretycznie jeśli
-        //potrzebujemy i tak publikacji do tego to można od razu ją usunąć i tworzenie jest bezsensowne
-        //więc albo można ją usuwać ręcznie albo od razu po utworzeniu ewentualnie dodać listę z historią umów
+        
         public void UmowaODzielo(Autor autor, Publikacje publikacja, DzialHandlu DH)
         {
             if (UmowaODzieloNaLiscie(autor) || UmowaOPraceNaLiscie(autor)) throw new AutorMaUmowe("Autor ma juz zawarta umowe o prace lub dzielo");
@@ -44,7 +36,7 @@ namespace Wydawnictwo
             Program.Update(DH, this);
         }
 
-        //usuniecie z listy umow obiektu ktory ma danego autora
+      
         public void RozwiazanieUmowy(Autor autor, DzialHandlu DH)
         {
             for (int i = 0; i < ListaUmow.Count; i++)
@@ -60,14 +52,14 @@ namespace Wydawnictwo
 
         public bool Zlecenie(Autor? autor, String? rodzaj, String? tytul, DzialHandlu DH)
         {
-            //Lista nazw klas nieporządanych przy tworzeniu obiektu publikacji
+            
             List<String> zakazaneNazwy = new List<String>() { "Autor", "Umowy", "UmowyODzielo", "UmowyOPrace", "DzialHandlu", "Drukarnie", "DzialDruku", "Ksiazka", "Czasopismo", "Publikacje", "Sklep" };
 
             if (autor == null) { autor = new Autor(); }
             if (rodzaj == null) rodzaj = "Inne";
             if (tytul == null) tytul = "Brak Tytulu";
 
-            if (zakazaneNazwy.Contains(rodzaj))//można wyjątek ale ja trochę ich nie ogarniam
+            if (zakazaneNazwy.Contains(rodzaj))
             { Console.WriteLine("Niepoprawny rodzaj publikacji\n"); return false; }
 
             if (UmowaOPraceNaLiscie(autor))
@@ -84,6 +76,7 @@ namespace Wydawnictwo
                 { Console.WriteLine("Nie udało się stworzyć zlecenia\n"); return false; }
 
                 DH.DodajDoListy(pub);
+                DH.ZlecenieDruku(200, pub, this);
                 Program.Update(DH, this);
                 return true;
             }
@@ -118,11 +111,18 @@ namespace Wydawnictwo
             if (!AutorNaLiscie(autor)) { ListaAutorow.Add(autor); }
             else throw new AutorJestNaLiscie("Dany autor jest juz na liscie autorow");
         }
-        
-        public void UsunAutora(Autor autor, DzialHandlu DH)
+
+        public void UsunAutora(int numer_autora, DzialHandlu DH)
         {
-            ListaAutorow.Remove(autor);            
-            Program.Update(DH, this);
+            for (int i = 0; i < ListaAutorow.Count; i++)
+            {
+                if (i + 1 == numer_autora)
+                {
+                    ListaAutorow.Remove(ListaAutorow[i]);
+                    Program.Update(DH, this);
+                    break;
+                }
+            }
         }
 
         public bool AutorNaLiscie(Autor autor)
