@@ -10,12 +10,10 @@ namespace Wydawnictwo
     class DzialHandlu
     {
         private ArrayList ListaPublikacji = new ArrayList();
-        private static String NazwaPlikuPublikacje = "Publikacje.txt";
-        private DzialProgramowy DP=new DzialProgramowy();
         
         public void ZlecenieDruku(int ilosc, Publikacje publikacje)
         {
-            if (DP.WyborDrukarni(ilosc, publikacje))
+            if (DzialProgramowy.WyborDrukarni(ilosc, publikacje, this))
             {
                 Console.WriteLine("Pomyslnie wydrukowano " + publikacje.Tytul + " w nastepujacej liczbie egzemplarzy: " + ilosc);
                 if (!PublikacjaNaLiscie(publikacje))
@@ -35,16 +33,12 @@ namespace Wydawnictwo
             else
                 Console.WriteLine("Nie ma wystarczającej ilości podanej publikacji, dostępna ilość to: " + publikacje.Ilosc);
         }
-        
+        //WYJATEK
         public ArrayList  Katalog
         {
            get { return ListaPublikacji; }
         }
 
-        public String PlikPublikacje
-        {
-            get { return NazwaPlikuPublikacje; }
-        }
         
         public Boolean PublikacjaNaLiscie(Publikacje publikacja)
         {
