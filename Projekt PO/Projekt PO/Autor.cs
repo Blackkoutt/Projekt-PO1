@@ -19,21 +19,24 @@ namespace Wydawnictwo
         {
             this.imie = imie;
             this.nazwisko = nazwisko;
-            email = "email";
+            email = "brak maila";
         }
 
         //konstruktor do czasopism żeby miały tego samego "autora" czyli wydawnictwo
         //w publikacjach nie będzie potrzebny drugi konstruktor
         public Autor()
         {
-            this.imie = "Wydawnictwo ePress";
-            this.nazwisko = "Wydawnictwo ePress";
+            this.imie = "Wydawnictwo";
+            this.nazwisko = "ePress";
             this.email = "ePress@gmail.com";
         }
         public bool Equals(Autor autor)
         {
-            if (autor != null && this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko && this.Email == autor.Email)
-            { return true; }
+            if (autor != null && this.Imie == autor.Imie && this.Nazwisko == autor.Nazwisko)
+            { 
+                if(email != autor.Email) { email = autor.Email; }//Do nadpisywania maila w przypadku tej samej osoby
+                return true; 
+            }
             return false;
         }
         public String Imie { get { return imie; } }
