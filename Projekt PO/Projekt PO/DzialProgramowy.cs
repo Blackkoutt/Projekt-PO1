@@ -121,7 +121,7 @@ namespace Wydawnictwo
         
         public void UsunAutora(Autor autor, DzialHandlu DH)
         {
-            ListaAutorow.Remove(autor);
+            ListaAutorow.Remove(autor);            
             Program.Update(DH, this);
         }
 
