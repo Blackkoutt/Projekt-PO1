@@ -19,11 +19,6 @@ namespace Wydawnictwo
             }
         }
 
-        public void DodajDoListy(Publikacje publikacje)
-        {
-            ListaPublikacji.Add(publikacje);
-        }
-        
         public void ZlecenieKupna(int ilosc, Publikacje publikacje)
         {
             if (publikacje.Ilosc - ilosc >= 0)
@@ -32,12 +27,24 @@ namespace Wydawnictwo
                 Console.WriteLine("Nie ma wystarczającej ilości podanej publikacji, dostępna ilość to: " + publikacje.Ilosc);
         }
         //WYJATEK
+
         public ArrayList  Katalog
         {
            get { return ListaPublikacji; }
         }
 
-        
+        public void DodajDoListy(Publikacje publikacje)
+        {
+            ListaPublikacji.Add(publikacje);
+            Sklep.AktualizujInwentarz(this);
+        }
+
+        public void UsunPublikacje(Publikacje publikacja)
+        {
+            ListaPublikacji.Remove(publikacja);
+            Sklep.AktualizujInwentarz(this);
+        }
+
         public Boolean PublikacjaNaLiscie(Publikacje publikacja)
         {
             foreach (Publikacje publikacje in ListaPublikacji)
@@ -45,11 +52,6 @@ namespace Wydawnictwo
                 if (publikacja.Equals(publikacje)) { return true; }
             }
             return false;
-        }
-
-        public void UsunPublikacje(Publikacje publikacja)
-        {
-            ListaPublikacji.Remove(publikacja);
         }
 
         public Publikacje? SzukajPublikacji(Autor autor, string tytul)
