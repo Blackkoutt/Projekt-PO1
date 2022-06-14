@@ -38,15 +38,15 @@ namespace Wydawnictwo
     }
     class UmowyOPrace : Umowy
     {
-        protected double dlugosc;
+        protected int dlugosc;
 
-        public UmowyOPrace(double dlugosc, Autor autor) : base(autor)
+        public UmowyOPrace(int dlugosc, Autor autor) : base(autor)
         {
             this.dlugosc = dlugosc;
         }
 
         //na zapas, jeśli nie będzie potrzebna usunąć
-        public double Dlugosc
+        public int Dlugosc
         {
             get { return dlugosc; }
         }

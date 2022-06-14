@@ -16,7 +16,7 @@ namespace Wydawnictwo
       // public DzialProgramowy() { DH = new DzialHandlu(); DR = new Drukarnie(); }
         //zamiana na boola żeby dostać komunikat czy umowa została zawarta (w obu umowach)
 
-        public void UmowaOPrace(double dlugosc, Autor autor, DzialHandlu DH)
+        public void UmowaOPrace(int dlugosc, Autor autor, DzialHandlu DH)
         {
             if (UmowaODzieloNaLiscie(autor) || UmowaOPraceNaLiscie(autor)) throw new AutorMaUmowe("Autor ma juz zawarta umowe o prace lub dzielo");
             if (!AutorNaLiscie(autor))

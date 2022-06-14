@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wydawnictwo
+﻿namespace Wydawnictwo
 {
     class Autor
     {
@@ -22,8 +16,6 @@ namespace Wydawnictwo
             email = "brak maila";
         }
 
-        //konstruktor do czasopism żeby miały tego samego "autora" czyli wydawnictwo
-        //w publikacjach nie będzie potrzebny drugi konstruktor
         public Autor()
         {
             this.imie = "Wydawnictwo";

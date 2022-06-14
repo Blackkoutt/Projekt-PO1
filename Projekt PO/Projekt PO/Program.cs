@@ -201,37 +201,27 @@ class Program
 
         while ((line = odczytUmowy.ReadLine()) != null)
         {
-            List<String> zakazaneNazwy = new List<String>() { "Autor", "Umowy", "UmowyODzielo", "UmowyOPrace", "DzialHandlu", "Drukarnie", "DzialDruku", "Ksiazka", "Czasopismo", "Publikacje", "Sklep" };
-
             string[] s = line.Split(",");
             string imie = s[0];
             string nazwisko = s[1];
-            string tytul = s[2];
-            double dlugosc = Int16.Parse(s[2]);//powinno być zapisywane i odczytywane jako double ale to trochę chyba bardziej skomplikowane
+            string tytul_dlugosc = s[2];
             string typStr = s[3];
             Autor autor = new Autor(imie, nazwisko);
 
-
             typStr = DoWielkiej(typStr);
-            if (zakazaneNazwy.Contains(typStr))
-            { typStr = "[BezNazwy]"; }
-
-            String nazwaTypu = "Wydawnictwo." + typStr;
-            Type? typ = Type.GetType(nazwaTypu);
-            if (typ == null)
-                typ = Type.GetType("Wydawnictwo.Inne");
-
             
-            if(typ is UmowyODzielo)
+            if(typStr == "UmowaODzielo")
             {
-                Publikacje? publikacja = DH.SzukajPublikacji(autor, tytul);
+
+                Publikacje? publikacja = DH.SzukajPublikacji(autor, tytul_dlugosc);
                 if (publikacja == null)
-                    publikacja = new Inne(autor, tytul);
+                    publikacja = new Inne(autor, tytul_dlugosc);
 
                 DP.UmowaODzielo(autor, publikacja, DH);
             }
-            else
+            else if(typStr == "UmowaOPrace")
             {
+                int dlugosc = int.Parse(tytul_dlugosc);
                 DP.UmowaOPrace(dlugosc, autor, DH);
             }
         }
@@ -261,7 +251,7 @@ class Program
         int wybor_ksiazki;
         string imie, nazwisko, mail, tytul;
         int ru, rk, x;
-        double dlugosc_umowy;
+        int dlugosc_umowy;
         Type? typUmowy, typPublikacji;
 
         //Setup
@@ -274,17 +264,12 @@ class Program
 
         try { DP.DodajAutora(new Autor()); }
         catch (AutorJestNaLiscie) { }
+        try { DP.UmowaOPrace(100, new Autor(), DH); }
+        catch (AutorMaUmowe) { }
+
         Program.Update(DH, DP);
 
         Sklep sklep = new Sklep(DH);
-
-        /*Tygodnik tyg = new Tygodnik(new Autor(), "tydzien");
-
-        DH.DodajDoListy(tyg);
-        Update(DH, DP);*///Do testu zapisu i odczytu
-
-        
-
 
 
         while(true)
@@ -296,7 +281,7 @@ class Program
             Console.WriteLine("2. Zaloguj sie jako pracownik");
             Console.WriteLine("3. Zakoncz program");
             ConsoleKeyInfo key = Console.ReadKey();
-            wybor_logowania = key.KeyChar;//Console.ReadLine();
+            wybor_logowania = key.KeyChar;
 
             switch (wybor_logowania)
             {
@@ -321,7 +306,7 @@ class Program
                             {
                                 case '1':
                                     {
-                                        ArrayList inwentarz = new ArrayList();
+                                        ArrayList inwentarz;
                                         try { inwentarz = sklep.getlista(); }
                                         catch (PustaListaException PL)
                                         {
@@ -497,7 +482,7 @@ class Program
                                     if (wybor_umowy == '1')
                                     { 
                                         Console.WriteLine("Podaj dlugosc umowy (w latach)");
-                                        dlugosc_umowy = double.Parse(Console.ReadLine());
+                                        dlugosc_umowy = int.Parse(Console.ReadLine());
 
                                         try { DP.UmowaOPrace(dlugosc_umowy, new Autor(imie, nazwisko, mail), DH); }
                                         catch (AutorMaUmowe AMU)
