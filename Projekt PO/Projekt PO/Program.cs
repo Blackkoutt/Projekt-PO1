@@ -204,8 +204,7 @@ class Program
             string[] s = line.Split(",");
             string imie = s[0];
             string nazwisko = s[1];
-            string tytul = s[2];
-            double dlugosc = Int16.Parse(s[2]);//powinno być zapisywane i odczytywane jako double ale to trochę chyba bardziej skomplikowane
+            string tytul_dlugosc = s[2];
             string typStr = s[3];
             Autor autor = new Autor(imie, nazwisko);
 
@@ -213,14 +212,16 @@ class Program
             
             if(typStr == "UmowaODzielo")
             {
-                Publikacje? publikacja = DH.SzukajPublikacji(autor, tytul);
+
+                Publikacje? publikacja = DH.SzukajPublikacji(autor, tytul_dlugosc);
                 if (publikacja == null)
-                    publikacja = new Inne(autor, tytul);
+                    publikacja = new Inne(autor, tytul_dlugosc);
 
                 DP.UmowaODzielo(autor, publikacja, DH);
             }
             else if(typStr == "UmowaOPrace")
             {
+                int dlugosc = int.Parse(tytul_dlugosc);
                 DP.UmowaOPrace(dlugosc, autor, DH);
             }
         }
@@ -263,6 +264,8 @@ class Program
 
         try { DP.DodajAutora(new Autor()); }
         catch (AutorJestNaLiscie) { }
+        DP.UmowaOPrace(100, new Autor(), DH);
+
         Program.Update(DH, DP);
 
         Sklep sklep = new Sklep(DH);
@@ -310,7 +313,7 @@ class Program
                             {
                                 case '1':
                                     {
-                                        ArrayList inwentarz = new ArrayList();
+                                        ArrayList inwentarz;
                                         try { inwentarz = sklep.getlista(); }
                                         catch (PustaListaException PL)
                                         {
